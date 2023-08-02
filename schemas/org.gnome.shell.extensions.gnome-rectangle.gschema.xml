@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.gnome-rectangle" path="/org/gnome/shell/extensions/gnome-rectangle/">
+    <key name="padding-inner" type="i">
+      <default>8</default>
+      <summary>Inner padding</summary>
+      <description>Padding between windows</description>
+    </key>
+    <key name="padding-outer" type="i">
+      <default>8</default>
+      <summary>Outer padding</summary>
+      <description>Padding between window and desktop</description>
+    </key>
+  </schema>
+</schemalist>

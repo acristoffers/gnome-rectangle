@@ -1,0 +1,20 @@
+{
+  "name": "gnome-rectangle",
+  "version": "1.0.0",
+  "description": "Magnet/Rectangle like manual tiling",
+  "main": "extension.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acristoffers/gnome-rectangle.git"
+  },
+  "author": "Álan Crístoffer e Sousa <acristoffers@startmail.com>",
+  "license": "LGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/acristoffers/gnome-rectangle/issues"
+  },
+  "homepage": "https://github.com/acristoffers/gnome-rectangle#readme",
+  "devDependencies": {
+    "eslint": "^8.46.0",
+    "eslint-plugin-jsdoc": "^46.4.5"
+  }
+}

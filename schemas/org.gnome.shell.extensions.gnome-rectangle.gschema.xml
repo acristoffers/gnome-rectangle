@@ -11,5 +11,15 @@
       <summary>Outer padding</summary>
       <description>Padding between window and desktop</description>
     </key>
+    <key name="animate-movement" type="b">
+      <default>true</default>
+      <summary>Animation</summary>
+      <description>Whether to animate window movement/resizing</description>
+    </key>
+    <key name="animation-duration" type="i">
+      <default>250</default>
+      <summary>Animation duration</summary>
+      <description>Duration of the window movement animation, in milliseconds</description>
+    </key>
   </schema>
 </schemalist>

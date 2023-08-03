@@ -6,7 +6,7 @@ const Shell = imports.gi.Shell;
 
 class Extension {
     enable() {
-        this.keyManager = new Manager();
+        this.keyManager = new ShortcutsManager();
         this.gsettings = ExtensionUtils.getSettings();
         this.registerShortcuts();
     }
@@ -18,9 +18,16 @@ class Extension {
         this.gsettings = null;
     }
 
+    focusedWindow() {
+        return global.display.focus_window;
+    }
+
+    windowActor(app) {
+        return app.get_compositor_private();
+    }
+
     screenSize() {
-        const app = global.display.focus_window;
-        return app.get_work_area_current_monitor();
+        return this.focusedWindow().get_work_area_current_monitor();
     }
 
     paddings() {
@@ -85,7 +92,7 @@ class Extension {
          * -7: Increases window span (rs and cs)
          */
 
-        const app = global.display.focus_window;
+        const app = this.focusedWindow();
         const win = app.get_frame_rect();
         let geometry = {
             width: win.width,
@@ -154,8 +161,32 @@ class Extension {
             app.rectangleArgs = [idx, prs, pcs, pr, pc];
         }
 
-        app.move_frame(true, geometry.x, geometry.y);
-        app.move_resize_frame(true, geometry.x, geometry.y, geometry.width, geometry.height);
+        app.unmake_fullscreen();
+        app.unmaximize(Meta.MaximizeFlags.BOTH);
+        const animate = this.gsettings.get_boolean('animate-movement');
+        if (animate) {
+            const actor = this.windowActor(app);
+            actor.remove_all_transitions();
+            actor.ease({
+                duration: this.gsettings.get_int('animation-duration'),
+                transition: Clutter.AnimationMode.EASE_OUT_QUAD,
+                translation_x: geometry.x - win.x,
+                translation_y: geometry.y - win.y,
+                scale_x: geometry.width / win.width,
+                scale_y: geometry.height / win.height,
+                onComplete: () => {
+                    actor.scale_x = 1;
+                    actor.scale_y = 1;
+                    app.move_frame(true, geometry.x, geometry.y);
+                    app.move_resize_frame(true, geometry.x, geometry.y, geometry.width, geometry.height);
+                    actor.translation_x = 0;
+                    actor.translation_y = 0;
+                },
+            });
+        } else {
+            app.move_frame(true, geometry.x, geometry.y);
+            app.move_resize_frame(true, geometry.x, geometry.y, geometry.width, geometry.height);
+        }
     }
 
     shortcut(_text, shortcut, i, rs, cs, r, c) {
@@ -258,7 +289,7 @@ class Extension {
  *     https://developer.gnome.org/meta/stable/meta-MetaKeybinding.html
  *     https://gitlab.gnome.org/GNOME/gnome-shell/blob/master/js/ui/windowManager.js#L1093-1112
  */
-class Manager {
+class ShortcutsManager {
     constructor() {
         this._keybindings = new Map();
 

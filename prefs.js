@@ -97,6 +97,48 @@ function buildPrefsWidget() {
     layout.attach(outerPaddingLabel, 0, row, 1, 1);
     layout.attach(outerPaddingBox, 1, row++, 1, 1);
 
+    let animateLabel = new Gtk.Label({
+        label: _('Animate'),
+        visible: true,
+        hexpand: true,
+        halign: Gtk.Align.START,
+    });
+    let animationDurationLabel = new Gtk.Label({
+        label: _('Animation Duration'),
+        visible: true,
+        hexpand: true,
+        halign: Gtk.Align.START,
+    });
+    let animationBox = new Gtk.Box({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        visible: true,
+    });
+    let animationDurationBox = new Gtk.Box({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        visible: true,
+    });
+    let animationSwitch = new Gtk.Switch({
+        halign: Gtk.Align.END,
+    });
+    let animationDurationAdjustment = new Gtk.Adjustment({
+        lower: 0,
+        upper: 10000,
+        step_increment: 1,
+    });
+    let animationDurationSpin = new Gtk.SpinButton({
+        adjustment: animationDurationAdjustment,
+        snap_to_ticks: true,
+        visible: true,
+    });
+    animationSwitch.set_active(gsettings.get_boolean('animate-movement'));
+    animationDurationSpin.set_value(gsettings.get_int('animation-duration'));
+    animationBox.append(animationSwitch);
+    animationDurationBox.append(animationDurationSpin);
+    layout.attach(animateLabel, 0, row, 1, 1);
+    layout.attach(animationBox, 1, row++, 1, 1);
+    layout.attach(animationDurationLabel, 0, row, 1, 1);
+    layout.attach(animationDurationBox, 1, row++, 1, 1);
+
     const connectAndSetInt = (setting, key) => {
         setting.connect('value-changed', entry => {
             gsettings.set_int(key, entry.value);
@@ -106,6 +148,11 @@ function buildPrefsWidget() {
     // settings that aren't toggles need a connect
     connectAndSetInt(innerPaddingWidget, 'padding-inner');
     connectAndSetInt(outerPaddingWidget, 'padding-outer');
+    connectAndSetInt(animationDurationAdjustment, 'animation-duration');
+
+    animationSwitch.connect('state-set', (_widget, state) => {
+        gsettings.set_boolean('animate-movement', state);
+    });
 
     // Return our widget which will be added to the window
     return layout;

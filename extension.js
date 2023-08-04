@@ -1,11 +1,18 @@
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
+const GLib = imports.gi.GLib;
 const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 
 class Extension {
     enable() {
+        this.animationState = {
+            id: null,
+            start: {},
+            end: {},
+            time: 0,
+        };
         this.keyManager = new ShortcutsManager();
         this.gsettings = ExtensionUtils.getSettings();
         this.registerShortcuts();
@@ -16,6 +23,7 @@ class Extension {
         this.keyManager.destroy();
         this.keyManager = null;
         this.gsettings = null;
+        this.animationState = null;
     }
 
     focusedWindow() {
@@ -161,27 +169,34 @@ class Extension {
             app.rectangleArgs = [idx, prs, pcs, pr, pc];
         }
 
-        app.unmake_fullscreen();
-        app.unmaximize(Meta.MaximizeFlags.BOTH);
+        if (app.fullscreen)
+            app.unmake_fullscreen();
+        if (app.maximized_horizontally || app.maximized_vertically)
+            app.unmaximize(Meta.MaximizeFlags.BOTH);
+
         const animate = this.gsettings.get_boolean('animate-movement');
+        const duration = this.gsettings.get_int('animation-duration');
+
+        this.animationState.time = 0;
+        this.animationState.start = win;
+        this.animationState.end = geometry;
+
         if (animate) {
-            const actor = this.windowActor(app);
-            actor.remove_all_transitions();
-            actor.ease({
-                duration: this.gsettings.get_int('animation-duration'),
-                transition: Clutter.AnimationMode.EASE_OUT_QUAD,
-                translation_x: geometry.x - win.x,
-                translation_y: geometry.y - win.y,
-                scale_x: geometry.width / win.width,
-                scale_y: geometry.height / win.height,
-                onComplete: () => {
-                    actor.scale_x = 1;
-                    actor.scale_y = 1;
-                    app.move_frame(true, geometry.x, geometry.y);
-                    app.move_resize_frame(true, geometry.x, geometry.y, geometry.width, geometry.height);
-                    actor.translation_x = 0;
-                    actor.translation_y = 0;
-                },
+            if (this.animationState.id !== null)
+                GLib.Source.remove(this.animationState.id);
+
+            this.animationState.id = GLib.timeout_add(GLib.PRIORITY_HIGH, 10, () => {
+                this.animationState.time += 10;
+                const state = this.animationState;
+                let a = state.time / duration;
+                if (a > 1)
+                    a = 1;
+                const x = a * state.end.x + (1 - a) * state.start.x;
+                const y = a * state.end.y + (1 - a) * state.start.y;
+                const width = a * state.end.width + (1 - a) * state.start.width;
+                const height = a * state.end.height + (1 - a) * state.start.height;
+                app.move_resize_frame(true, x, y, width, height);
+                return a !== 1;
             });
         } else {
             app.move_frame(true, geometry.x, geometry.y);

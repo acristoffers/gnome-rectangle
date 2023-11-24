@@ -1,159 +1,77 @@
 'use strict';
 
-const Gio = imports.gi.Gio;
-const Gtk = imports.gi.Gtk;
+import Gtk from 'gi://Gtk';
+import Adw from 'gi://Adw';
+import Gio from 'gi://Gio';
+import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const Gettext = imports.gettext;
-const _ = Gettext.domain('gnome-rectangle').gettext;
-
-const Config = imports.misc.config;
-const SHELL_VERSION = parseFloat(Config.PACKAGE_VERSION);
-
-/**
- *
- */
-function init() {
-}
-
-/**
- *
- */
-function buildPrefsWidget() {
-    // Create a parent widget that we'll return from this function
-    let layout = new Gtk.Grid({
-        margin_bottom: 18,
-        margin_end: 18,
-        margin_start: 18,
-        margin_top: 18,
-        column_spacing: 12,
-        row_spacing: 12,
-        visible: true,
-    });
-
-    let gsettings;
-    gsettings = ExtensionUtils.getSettings();
-    layout._gsettings = gsettings;
-
-    let row = 0;
-
-    // Add a simple title and add it to the layout
-    let title = new Gtk.Label({
-        label: `<b>${Me.metadata.name} Extension Preferences</b>`,
-        halign: Gtk.Align.CENTER,
-        use_markup: true,
-        visible: true,
-    });
-    layout.attach(title, 0, row++, 2, 1);
-
-    let innerPaddingLabel = new Gtk.Label({
-        label: _('Inner padding'),
-        visible: true,
-        hexpand: true,
-        halign: Gtk.Align.START,
-    });
-    let outerPaddingLabel = new Gtk.Label({
-        label: _('Outer padding'),
-        visible: true,
-        hexpand: true,
-        halign: Gtk.Align.START,
-    });
-    let innerPaddingBox = new Gtk.Box({
-        orientation: Gtk.Orientation.HORIZONTAL,
-        visible: true,
-    });
-    let outerPaddingBox = new Gtk.Box({
-        orientation: Gtk.Orientation.HORIZONTAL,
-        visible: true,
-    });
-    let innerPaddingAdjustment = new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-    });
-    let outerPaddingAdjustment = new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-    });
-    let innerPaddingWidget = new Gtk.SpinButton({
-        adjustment: innerPaddingAdjustment,
-        snap_to_ticks: true,
-        visible: true,
-    });
-    let outerPaddingWidget = new Gtk.SpinButton({
-        adjustment: outerPaddingAdjustment,
-        snap_to_ticks: true,
-        visible: true,
-    });
-    innerPaddingWidget.set_value(gsettings.get_int('padding-inner'));
-    outerPaddingWidget.set_value(gsettings.get_int('padding-outer'));
-    innerPaddingBox.append(innerPaddingWidget);
-    outerPaddingBox.append(outerPaddingWidget);
-    layout.attach(innerPaddingLabel, 0, row, 1, 1);
-    layout.attach(innerPaddingBox, 1, row++, 1, 1);
-    layout.attach(outerPaddingLabel, 0, row, 1, 1);
-    layout.attach(outerPaddingBox, 1, row++, 1, 1);
-
-    let animateLabel = new Gtk.Label({
-        label: _('Animate'),
-        visible: true,
-        hexpand: true,
-        halign: Gtk.Align.START,
-    });
-    let animationDurationLabel = new Gtk.Label({
-        label: _('Animation Duration'),
-        visible: true,
-        hexpand: true,
-        halign: Gtk.Align.START,
-    });
-    let animationBox = new Gtk.Box({
-        orientation: Gtk.Orientation.HORIZONTAL,
-        visible: true,
-    });
-    let animationDurationBox = new Gtk.Box({
-        orientation: Gtk.Orientation.HORIZONTAL,
-        visible: true,
-    });
-    let animationSwitch = new Gtk.Switch({
-        halign: Gtk.Align.END,
-    });
-    let animationDurationAdjustment = new Gtk.Adjustment({
-        lower: 0,
-        upper: 10000,
-        step_increment: 1,
-    });
-    let animationDurationSpin = new Gtk.SpinButton({
-        adjustment: animationDurationAdjustment,
-        snap_to_ticks: true,
-        visible: true,
-    });
-    animationSwitch.set_active(gsettings.get_boolean('animate-movement'));
-    animationDurationSpin.set_value(gsettings.get_int('animation-duration'));
-    animationBox.append(animationSwitch);
-    animationDurationBox.append(animationDurationSpin);
-    layout.attach(animateLabel, 0, row, 1, 1);
-    layout.attach(animationBox, 1, row++, 1, 1);
-    layout.attach(animationDurationLabel, 0, row, 1, 1);
-    layout.attach(animationDurationBox, 1, row++, 1, 1);
-
-    const connectAndSetInt = (setting, key) => {
-        setting.connect('value-changed', entry => {
-            gsettings.set_int(key, entry.value);
+export default class GnomeRectanglePreferences extends ExtensionPreferences {
+    fillPreferencesWindow(window) {
+        // Create a preferences page, with a single group
+        const page = new Adw.PreferencesPage({
+            title: _('General'),
+            icon_name: 'dialog-information-symbolic',
         });
-    };
 
-    // settings that aren't toggles need a connect
-    connectAndSetInt(innerPaddingWidget, 'padding-inner');
-    connectAndSetInt(outerPaddingWidget, 'padding-outer');
-    connectAndSetInt(animationDurationAdjustment, 'animation-duration');
+        const animationGroup = new Adw.PreferencesGroup({
+            title: _('Animation'),
+            description: _('Configure move/resize animation'),
+        });
+        page.add(animationGroup);
 
-    animationSwitch.connect('state-set', (_widget, state) => {
-        gsettings.set_boolean('animate-movement', state);
-    });
+        const animationEnabled = new Adw.SwitchRow({
+            title: _('Enabled'),
+            subtitle: _('Wether to animate windows'),
+        });
+        animationGroup.add(animationEnabled);
 
-    // Return our widget which will be added to the window
-    return layout;
+        const animationDuration = new Adw.SpinRow({
+            title: _('Duration'),
+            subtitle: _('Duration of animations in milliseconds'),
+            adjustment: new Gtk.Adjustment({
+                lower: 0,
+                upper: 10000,
+                step_increment: 10
+            })
+        });
+        animationGroup.add(animationDuration);
+
+        const paddingGroup = new Adw.PreferencesGroup({
+            title: _('Paddings'),
+            description: _('Configure the padding between windows'),
+        });
+        page.add(paddingGroup);
+
+        const paddingInner = new Adw.SpinRow({
+            title: _('Inner'),
+            subtitle: _('Padding between windows'),
+            adjustment: new Gtk.Adjustment({
+                lower: 0,
+                upper: 1000,
+                step_increment: 1
+            })
+        });
+        paddingGroup.add(paddingInner);
+
+        const paddingOuter = new Adw.SpinRow({
+            title: _('Outer'),
+            subtitle: _('Padding between windows and the screen'),
+            adjustment: new Gtk.Adjustment({
+                lower: 0,
+                upper: 1000,
+                step_increment: 1
+            })
+        });
+        paddingGroup.add(paddingOuter);
+
+        // Create a settings object and bind the row to the `show-indicator` key
+        window._settings = this.getSettings();
+        window._settings.bind('animate-movement', animationEnabled, 'active', Gio.SettingsBindFlags.DEFAULT);
+        window._settings.bind('animation-duration', animationDuration, 'value', Gio.SettingsBindFlags.DEFAULT);
+        window._settings.bind('padding-inner', paddingInner, 'value', Gio.SettingsBindFlags.DEFAULT);
+        window._settings.bind('padding-outer', paddingOuter, 'value', Gio.SettingsBindFlags.DEFAULT);
+
+        window.add(page);
+    }
 }
+

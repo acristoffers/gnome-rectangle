@@ -4,6 +4,6 @@
     "uuid": "gnome-rectangle@acristoffers.me",
     "settings-schema": "org.gnome.shell.extensions.gnome-rectangle",
     "shell-version": [
-        "44"
+        "45"
     ]
 }

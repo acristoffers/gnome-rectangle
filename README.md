@@ -66,4 +66,10 @@ It allows manual tiling with the following shortcuts:
 
 # Installation 
 
+GNOME 45+:
+
 `git clone https://github.com/acristoffers/gnome-rectangle ~/.local/share/gnome-shell/extensions/gnome-rectangle@acristoffers.me`
+
+GNOME 44-:
+
+`git clone https://github.com/acristoffers/gnome-rectangle -b v44 ~/.local/share/gnome-shell/extensions/gnome-rectangle@acristoffers.me`

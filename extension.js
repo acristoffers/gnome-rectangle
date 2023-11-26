@@ -2,7 +2,7 @@ import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export default class GnomeRectangle extends Extension {
     enable() {
@@ -22,6 +22,9 @@ export default class GnomeRectangle extends Extension {
         this.keyManager.destroy();
         this.keyManager = null;
         this.gsettings = null;
+        if (this.animationState.id !== null) {
+            GLib.Source.remove(this.animationState.id);
+        }
         this.animationState = null;
     }
 

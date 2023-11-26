@@ -2,6 +2,7 @@
     "name": "Rectangle",
     "description": "Magnet/Rectangle like manual tiling",
     "uuid": "gnome-rectangle@acristoffers.me",
+    "url": "https://github.com/acristoffers/gnome-rectangle",
     "settings-schema": "org.gnome.shell.extensions.gnome-rectangle",
     "shell-version": [
         "45"

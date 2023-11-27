@@ -1,10 +1,10 @@
-import GLib from 'gi://GLib';
-import Meta from 'gi://Meta';
-import Shell from 'gi://Shell';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
+const ExtensionUtils = imports.misc.extensionUtils;
+const GLib = imports.gi.GLib;
+const Main = imports.ui.main;
+const Meta = imports.gi.Meta;
+const Shell = imports.gi.Shell;
 
-export default class GnomeRectangle extends Extension {
+class Rectangle {
     enable() {
         this.animationState = {
             id: null,
@@ -13,7 +13,7 @@ export default class GnomeRectangle extends Extension {
             time: 0,
         };
         this.keyManager = new ShortcutsManager();
-        this.gsettings = this.getSettings();
+        this.gsettings = ExtensionUtils.getSettings();
         this.registerShortcuts();
     }
 
@@ -380,4 +380,8 @@ class ShortcutsManager {
         global.display.disconnect(this._acceleratorActivatedId);
         this.removeAll();
     }
+}
+
+function init() {
+    return new Rectangle();
 }

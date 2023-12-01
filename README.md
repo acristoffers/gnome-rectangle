@@ -1,3 +1,5 @@
+https://extensions.gnome.org/extension/6553/rectangle
+
 A Gnome extension to mimic macOS's Rectangle tiling.
 
 It allows manual tiling with the following shortcuts:

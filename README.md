@@ -1,6 +1,8 @@
-https://extensions.gnome.org/extension/6553/rectangle
+# Rectangle
 
-A Gnome extension to mimic macOS's Rectangle tiling.
+A Gnome extension to mimic macOS's [Rectangle](https://rectangleapp.com/) tiling.
+
+[<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" alt="Get it on GNOME Extensions" height="100" align="middle">][ego]
 
 It allows manual tiling with the following shortcuts:
 
@@ -70,8 +72,14 @@ It allows manual tiling with the following shortcuts:
 
 GNOME 45+:
 
-`git clone https://github.com/acristoffers/gnome-rectangle ~/.local/share/gnome-shell/extensions/rectangle@acristoffers.me`
+```bash
+git clone https://github.com/acristoffers/gnome-rectangle ~/.local/share/gnome-shell/extensions/rectangle@acristoffers.me
+```
 
 GNOME 42/43/44:
 
-`git clone https://github.com/acristoffers/gnome-rectangle -b GNOME42 ~/.local/share/gnome-shell/extensions/rectangle@acristoffers.me`
+```bash
+git clone https://github.com/acristoffers/gnome-rectangle -b GNOME42 ~/.local/share/gnome-shell/extensions/rectangle@acristoffers.me
+```
+
+[ego]: https://extensions.gnome.org/extension/6553/rectangle

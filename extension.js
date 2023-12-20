@@ -126,7 +126,7 @@ class Rectangle {
             const full = this.geometryForGrid(win, 0, 1, 1, 1, 1);
             geometry.y = full.y;
             geometry.height = full.height;
-        } else if (index === -5 && app.rectangleArgs !== null) {
+        } else if (index === -5 && app.rectangleArgs != null) {
             let [idx, prs, pcs, pr, pc] = app.rectangleArgs;
             let j = idx % pc;
             let i = (idx - j) / pc;
@@ -154,7 +154,7 @@ class Rectangle {
                     geometry.width = screen.width - pad.outer - geometry.x;
                     break;
             }
-        } else if (index === -7 && app.rectangleArgs !== null) {
+        } else if (index === -7 && app.rectangleArgs != null) {
             let [idx, prs, pcs, pr, pc] = app.rectangleArgs;
             let j = idx % pc;
             let i = (idx - j) / pc;
@@ -169,6 +169,10 @@ class Rectangle {
             idx = newi * pc + newj;
             geometry = this.geometryForGrid(win, idx, prs, pcs, pr, pc);
             app.rectangleArgs = [idx, prs, pcs, pr, pc];
+        }
+
+        if (index >= 0) {
+            app.rectangleArgs = [index, rs, cs, r, c];
         }
 
         if (app.fullscreen)
@@ -271,23 +275,23 @@ class Rectangle {
         this.shortcut('Stretch: (1) Bottom', 'Alt+Down', -6, 1, 0, 0, 0);
         this.shortcut('Stretch: (2) Left', 'Alt+Left', -6, 2, 0, 0, 0);
         this.shortcut('Stretch: (2) Right', 'Alt+Right', -6, 3, 0, 0, 0);
-        this.shortcut('Stretch: Step: (1) Bottom Left', '1', -7, -1, 1, 1, 1);
-        this.shortcut('Stretch: Step: (2) Bottom', '2', -7, 0, 1, 1, 1);
-        this.shortcut('Stretch: Step: (3) Bottom Right', '3', -7, 1, 1, 1, 1);
-        this.shortcut('Stretch: Step: (4) Left', '4', -7, -1, 0, 1, 1);
-        this.shortcut('Stretch: Step: (5) Right', '6', -7, 1, 0, 1, 1);
-        this.shortcut('Stretch: Step: (6) Top Left', '7', -7, -1, -1, 1, 1);
-        this.shortcut('Stretch: Step: (7) Top', '8', -7, 0, -1, 1, 1);
-        this.shortcut('Stretch: Step: (8) Top Right', '9', -7, 1, -1, 1, 1);
+        this.shortcut('Stretch: Step: (1) Bottom Left', 'KP_1', -7, -1, 1, 1, 1);
+        this.shortcut('Stretch: Step: (2) Bottom', 'KP_2', -7, 0, 1, 1, 1);
+        this.shortcut('Stretch: Step: (3) Bottom Right', 'KP_3', -7, 1, 1, 1, 1);
+        this.shortcut('Stretch: Step: (4) Left', 'KP_4', -7, -1, 0, 1, 1);
+        this.shortcut('Stretch: Step: (5) Right', 'KP_6', -7, 1, 0, 1, 1);
+        this.shortcut('Stretch: Step: (6) Top Left', 'KP_7', -7, -1, -1, 1, 1);
+        this.shortcut('Stretch: Step: (7) Top', 'KP_8', -7, 0, -1, 1, 1);
+        this.shortcut('Stretch: Step: (8) Top Right', 'KP_9', -7, 1, -1, 1, 1);
 
-        this.shortcut('Move: (1) Bottom Left', 'Alt+1', -5, -1, 1, 1, 1);
-        this.shortcut('Move: (2) Bottom', 'Alt+2', -5, 0, 1, 1, 1);
-        this.shortcut('Move: (3) Bottom Right', 'Alt+3', -5, 1, 1, 1, 1);
-        this.shortcut('Move: (4) Left', 'Alt+4', -5, -1, 0, 1, 1);
-        this.shortcut('Move: (5) Right', 'Alt+6', -5, 1, 0, 1, 1);
-        this.shortcut('Move: (6) Top Left', 'Alt+7', -5, -1, -1, 1, 1);
-        this.shortcut('Move: (7) Top', 'Alt+8', -5, 0, -1, 1, 1);
-        this.shortcut('Move: (8) Top Right', 'Alt+9', -5, 1, -1, 1, 1);
+        this.shortcut('Move: (1) Bottom Left', 'Alt+KP_1', -5, -1, 1, 1, 1);
+        this.shortcut('Move: (2) Bottom', 'Alt+KP_2', -5, 0, 1, 1, 1);
+        this.shortcut('Move: (3) Bottom Right', 'Alt+KP_3', -5, 1, 1, 1, 1);
+        this.shortcut('Move: (4) Left', 'Alt+KP_4', -5, -1, 0, 1, 1);
+        this.shortcut('Move: (5) Right', 'Alt+KP_6', -5, 1, 0, 1, 1);
+        this.shortcut('Move: (6) Top Left', 'Alt+KP_7', -5, -1, -1, 1, 1);
+        this.shortcut('Move: (7) Top', 'Alt+KP_8', -5, 0, -1, 1, 1);
+        this.shortcut('Move: (8) Top Right', 'Alt+KP_9', -5, 1, -1, 1, 1);
     }
 }
 

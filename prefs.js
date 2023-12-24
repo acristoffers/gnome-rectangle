@@ -151,6 +151,10 @@ export default class GnomeRectanglePreferences extends ExtensionPreferences {
         this.shortcutRow(shortcutsGroup, 'Move: Top Left', 'Alt+7');
         this.shortcutRow(shortcutsGroup, 'Move: Top', 'Alt+8');
         this.shortcutRow(shortcutsGroup, 'Move: Top Right', 'Alt+9');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (1) Top', 'Shift+Up');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (2) Bottom', 'Shift+Down');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (3) Left', 'Shift+Left');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (4) Right', 'Shift+Right');
 
         return page;
     }

@@ -169,6 +169,16 @@ class Rectangle {
             idx = newi * pc + newj;
             geometry = this.geometryForGrid(win, idx, prs, pcs, pr, pc);
             app.rectangleArgs = [idx, prs, pcs, pr, pc];
+        } else if (index === -8) {
+            const currentMonitor = app.get_monitor()
+            const targetMonitor = global.display.get_monitor_neighbor_index(currentMonitor, rs)
+            if (targetMonitor >= 0) {
+                app.move_to_monitor(targetMonitor)
+                if (app.rectangleArgs != null) {
+                    this.manage(...app.rectangleArgs)
+                }
+            }
+            return
         }
 
         if (index >= 0) {
@@ -201,6 +211,7 @@ class Rectangle {
                 const y = a * state.end.y + (1 - a) * state.start.y;
                 const width = a * state.end.width + (1 - a) * state.start.width;
                 const height = a * state.end.height + (1 - a) * state.start.height;
+                app.move_frame(true, x, y);
                 app.move_resize_frame(true, x, y, width, height);
                 return a !== 1;
             });
@@ -292,6 +303,11 @@ class Rectangle {
         this.shortcut('Move: (6) Top Left', 'Alt+KP_7', -5, -1, -1, 1, 1);
         this.shortcut('Move: (7) Top', 'Alt+KP_8', -5, 0, -1, 1, 1);
         this.shortcut('Move: (8) Top Right', 'Alt+KP_9', -5, 1, -1, 1, 1);
+
+        this.shortcut('Move To Monitor: (1) Top', 'Shift+Up', -8, Meta.DisplayDirection.UP, 0, 0, 0);
+        this.shortcut('Move To Monitor: (1) Bottom', 'Shift+Down', -8, Meta.DisplayDirection.DOWN, 0, 0, 0);
+        this.shortcut('Move To Monitor: (2) Left', 'Shift+Left', -8, Meta.DisplayDirection.LEFT, 0, 0, 0);
+        this.shortcut('Move To Monitor: (2) Right', 'Shift+Right', -8, Meta.DisplayDirection.RIGHT, 0, 0, 0);
     }
 }
 

@@ -161,6 +161,8 @@ function shortcutsPage() {
     this.shortcutRow(shortcutsGroup, 'Two Thirds: Left', 'E');
     this.shortcutRow(shortcutsGroup, 'Two Thirds: Center', 'R');
     this.shortcutRow(shortcutsGroup, 'Two Thirds: Right', 'T');
+    this.shortcutRow(shortcutsGroup, 'Three Fourths: Left', 'N');
+    this.shortcutRow(shortcutsGroup, 'Three Fourths: Right', 'M');
     this.shortcutRow(shortcutsGroup, 'Center', 'C');
     this.shortcutRow(shortcutsGroup, 'Maximize', 'Return');
     this.shortcutRow(shortcutsGroup, 'Maximize: Almost', 'Shift+Return');

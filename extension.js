@@ -85,23 +85,30 @@ class Rectangle {
         };
     }
 
+    /* 
+     * - rs and cs are row and col span, how many cells in the grid will be
+     * taken by the window.
+     * - r and c are the size of the grid.
+     * - Index is the zero-index of the square in the grid.
+     * For example, if index=2, rs=1, cs=1, r=2, c=2, then
+     * you get the first column and second row:
+     * |--0--|--1--|
+     * |##2##|--3--|
+     * If index=2, rs=1, cs=2, r=2, c=2, then
+     * you get the first column and second row and will occupy two cells:
+     * |--0--|--1--|
+     * |##2##|##3##|
+     * Negative indexes have special meanings:
+     * -1: Just center the window
+     * -2: Resize and center
+     * -3: Maximize window's width
+     * -4: Maximize window's height
+     * -5: Move window in rs,cs direction
+     * -6: Stretch (resizes to make window touch screen side)
+     * -7: Increases window span (rs and cs)
+     * -8: Move window to another monitor
+     */
     manage(index, rs, cs, r, c) {
-        /*
-         * Index is the zero-index of the square in the grid.
-         * For example, if index=2, r=2, c=2, then
-         * you get the first column and second row:
-         * |--0--|--1--|
-         * |##2##|--3--|
-         * Negative indexes have special meanings:
-         * -1: Just center the window
-         * -2: Resize and center
-         * -3: Maximize window's width
-         * -4: Maximize window's height
-         * -5: Move window in rs,cs direction
-         * -6: Stretch (resizes to make window touch screen side)
-         * -7: Increases window span (rs and cs)
-         */
-
         const app = this.focusedWindow();
         const win = app.get_frame_rect();
         let geometry = {
@@ -275,6 +282,9 @@ class Rectangle {
         this.shortcut('Two Thirds: (1) Left', 'E', 0, 1, 2, 1, 3);
         this.shortcut('Two Thirds: (2) Center', 'R', -2, 1, 2, 1, 3);
         this.shortcut('Two Thirds: (3) Right', 'T', 1, 1, 2, 1, 3);
+
+        this.shortcut('Three Fourths: Left', 'Shift+N', 0, 1, 3, 1, 4);
+        this.shortcut('Three Fourths: Right', 'Shift+M', 1, 1, 3, 1, 4);
 
         this.shortcut('Center', 'C', -1, 1, 1, 1, 1);
         this.shortcut('Maximize', 'Return', 0, 1, 1, 1, 1);

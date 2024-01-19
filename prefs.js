@@ -126,6 +126,8 @@ export default class GnomeRectanglePreferences extends ExtensionPreferences {
         this.shortcutRow(shortcutsGroup, 'Two Thirds: Left', 'E');
         this.shortcutRow(shortcutsGroup, 'Two Thirds: Center', 'R');
         this.shortcutRow(shortcutsGroup, 'Two Thirds: Right', 'T');
+        this.shortcutRow(shortcutsGroup, 'Three Fourths: Left', 'N');
+        this.shortcutRow(shortcutsGroup, 'Three Fourths: Right', 'M');
         this.shortcutRow(shortcutsGroup, 'Center', 'C');
         this.shortcutRow(shortcutsGroup, 'Maximize', 'Return');
         this.shortcutRow(shortcutsGroup, 'Maximize: Almost', 'Shift+Return');
@@ -151,10 +153,10 @@ export default class GnomeRectanglePreferences extends ExtensionPreferences {
         this.shortcutRow(shortcutsGroup, 'Move: Top Left', 'Alt+7');
         this.shortcutRow(shortcutsGroup, 'Move: Top', 'Alt+8');
         this.shortcutRow(shortcutsGroup, 'Move: Top Right', 'Alt+9');
-        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (1) Top', 'Shift+Up');
-        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (2) Bottom', 'Shift+Down');
-        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (3) Left', 'Shift+Left');
-        this.shortcutRow(shortcutsGroup, 'Move To Monitor: (4) Right', 'Shift+Right');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: Top', 'Shift+Up');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: Bottom', 'Shift+Down');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: Left', 'Shift+Left');
+        this.shortcutRow(shortcutsGroup, 'Move To Monitor: Right', 'Shift+Right');
 
         return page;
     }

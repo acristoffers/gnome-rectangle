@@ -85,24 +85,30 @@ export default class GnomeRectangle extends Extension {
         };
     }
 
+    /* 
+     * - rs and cs are row and col span, how many cells in the grid will be
+     * taken by the window.
+     * - r and c are the size of the grid.
+     * - Index is the zero-index of the square in the grid.
+     * For example, if index=2, rs=1, cs=1, r=2, c=2, then
+     * you get the first column and second row:
+     * |--0--|--1--|
+     * |##2##|--3--|
+     * If index=2, rs=1, cs=2, r=2, c=2, then
+     * you get the first column and second row and will occupy two cells:
+     * |--0--|--1--|
+     * |##2##|##3##|
+     * Negative indexes have special meanings:
+     * -1: Just center the window
+     * -2: Resize and center
+     * -3: Maximize window's width
+     * -4: Maximize window's height
+     * -5: Move window in rs,cs direction
+     * -6: Stretch (resizes to make window touch screen side)
+     * -7: Increases window span (rs and cs)
+     * -8: Move window to another monitor
+     */
     manage(index, rs, cs, r, c) {
-        /*
-         * Index is the zero-index of the square in the grid.
-         * For example, if index=2, r=2, c=2, then
-         * you get the first column and second row:
-         * |--0--|--1--|
-         * |##2##|--3--|
-         * Negative indexes have special meanings:
-         * -1: Just center the window
-         * -2: Resize and center
-         * -3: Maximize window's width
-         * -4: Maximize window's height
-         * -5: Move window in rs,cs direction
-         * -6: Stretch (resizes to make window touch screen side)
-         * -7: Increases window span (rs and cs)
-         * -8: Move window to another monitor
-         */
-
         const app = this.focusedWindow();
         const win = app.get_frame_rect();
         let geometry = {
@@ -234,48 +240,51 @@ export default class GnomeRectangle extends Extension {
     }
 
     registerShortcuts() {
-        this.shortcut('Quarter: (1) Top Left', 'U', 0, 1, 1, 2, 2);
-        this.shortcut('Quarter: (2) Top Right', 'I', 1, 1, 1, 2, 2);
-        this.shortcut('Quarter: (3) Bottom Left', 'J', 2, 1, 1, 2, 2);
-        this.shortcut('Quarter: (4) Bottom Right', 'K', 3, 1, 1, 2, 2);
-        this.shortcut('Quarter: (5) Centered', 'Alt+C', -2, 1, 1, 2, 2);
+        this.shortcut('Quarter: Top Left', 'U', 0, 1, 1, 2, 2);
+        this.shortcut('Quarter: Top Right', 'I', 1, 1, 1, 2, 2);
+        this.shortcut('Quarter: Bottom Left', 'J', 2, 1, 1, 2, 2);
+        this.shortcut('Quarter: Bottom Right', 'K', 3, 1, 1, 2, 2);
+        this.shortcut('Quarter: Centered', 'Alt+C', -2, 1, 1, 2, 2);
 
-        this.shortcut('Fourth: (1) First', 'V', 0, 1, 1, 1, 4);
-        this.shortcut('Fourth: (2) Second', 'B', 1, 1, 1, 1, 4);
-        this.shortcut('Fourth: (3) Third', 'N', 2, 1, 1, 1, 4);
-        this.shortcut('Fourth: (4) Fourth', 'M', 3, 1, 1, 1, 4);
+        this.shortcut('Fourth: First', 'V', 0, 1, 1, 1, 4);
+        this.shortcut('Fourth: Second', 'B', 1, 1, 1, 1, 4);
+        this.shortcut('Fourth: Third', 'N', 2, 1, 1, 1, 4);
+        this.shortcut('Fourth: Fourth', 'M', 3, 1, 1, 1, 4);
 
-        this.shortcut('Third: (1) First', 'D', 0, 1, 1, 1, 3);
-        this.shortcut('Third: (2) Second', 'F', 1, 1, 1, 1, 3);
-        this.shortcut('Third: (3) Third', 'G', 2, 1, 1, 1, 3);
+        this.shortcut('Third: First', 'D', 0, 1, 1, 1, 3);
+        this.shortcut('Third: Second', 'F', 1, 1, 1, 1, 3);
+        this.shortcut('Third: Third', 'G', 2, 1, 1, 1, 3);
 
-        this.shortcut('Sixth: (1) Top Left', 'Shift+U', 0, 1, 1, 2, 3);
-        this.shortcut('Sixth: (2) Top Center', 'Shift+I', 1, 1, 1, 2, 3);
-        this.shortcut('Sixth: (3) Top Right', 'Shift+O', 2, 1, 1, 2, 3);
-        this.shortcut('Sixth: (4) Bottom Left', 'Shift+J', 3, 1, 1, 2, 3);
-        this.shortcut('Sixth: (5) Bottom Center', 'Shift+K', 4, 1, 1, 2, 3);
-        this.shortcut('Sixth: (6) Bottom Right', 'Shift+L', 5, 1, 1, 2, 3);
+        this.shortcut('Sixth: Top Left', 'Shift+U', 0, 1, 1, 2, 3);
+        this.shortcut('Sixth: Top Center', 'Shift+I', 1, 1, 1, 2, 3);
+        this.shortcut('Sixth: Top Right', 'Shift+O', 2, 1, 1, 2, 3);
+        this.shortcut('Sixth: Bottom Left', 'Shift+J', 3, 1, 1, 2, 3);
+        this.shortcut('Sixth: Bottom Center', 'Shift+K', 4, 1, 1, 2, 3);
+        this.shortcut('Sixth: Bottom Right', 'Shift+L', 5, 1, 1, 2, 3);
 
-        this.shortcut('Ninth: (1) Top Left', 'Alt+U', 0, 1, 1, 3, 3);
-        this.shortcut('Ninth: (2) Top Center', 'Alt+I', 1, 1, 1, 3, 3);
-        this.shortcut('Ninth: (3) Top Right', 'Alt+O', 2, 1, 1, 3, 3);
-        this.shortcut('Ninth: (4) Middle Left', 'Alt+J', 3, 1, 1, 3, 3);
-        this.shortcut('Ninth: (5) Middle Center', 'Alt+K', 4, 1, 1, 3, 3);
-        this.shortcut('Ninth: (6) Middle Right', 'Alt+L', 5, 1, 1, 3, 3);
-        this.shortcut('Ninth: (7) Bottom Left', 'Alt+N', 6, 1, 1, 3, 3);
-        this.shortcut('Ninth: (8) Bottom Center', 'Alt+M', 7, 1, 1, 3, 3);
-        this.shortcut('Ninth: (9) Bottom Right', 'Alt+comma', 8, 1, 1, 3, 3);
+        this.shortcut('Ninth: Top Left', 'Alt+U', 0, 1, 1, 3, 3);
+        this.shortcut('Ninth: Top Center', 'Alt+I', 1, 1, 1, 3, 3);
+        this.shortcut('Ninth: Top Right', 'Alt+O', 2, 1, 1, 3, 3);
+        this.shortcut('Ninth: Middle Left', 'Alt+J', 3, 1, 1, 3, 3);
+        this.shortcut('Ninth: Middle Center', 'Alt+K', 4, 1, 1, 3, 3);
+        this.shortcut('Ninth: Middle Right', 'Alt+L', 5, 1, 1, 3, 3);
+        this.shortcut('Ninth: Bottom Left', 'Alt+N', 6, 1, 1, 3, 3);
+        this.shortcut('Ninth: Bottom Center', 'Alt+M', 7, 1, 1, 3, 3);
+        this.shortcut('Ninth: Bottom Right', 'Alt+comma', 8, 1, 1, 3, 3);
 
-        this.shortcut('Half: (1) Center (Vertical)', 'Shift+C', -2, 1, 1, 1, 2);
-        this.shortcut('Half: (1) Center (Horizontal)', 'Shift+V', -2, 1, 1, 2, 1);
-        this.shortcut('Half: (2) Left', 'Left', 0, 1, 1, 1, 2);
-        this.shortcut('Half: (2) Right', 'Right', 1, 1, 1, 1, 2);
-        this.shortcut('Half: (3) Top', 'Up', 0, 1, 1, 2, 1);
-        this.shortcut('Half: (3) Bottom', 'Down', 1, 1, 1, 2, 1);
+        this.shortcut('Half: Center (Vertical)', 'Shift+C', -2, 1, 1, 1, 2);
+        this.shortcut('Half: Center (Horizontal)', 'Shift+V', -2, 1, 1, 2, 1);
+        this.shortcut('Half: Left', 'Left', 0, 1, 1, 1, 2);
+        this.shortcut('Half: Right', 'Right', 1, 1, 1, 1, 2);
+        this.shortcut('Half: Top', 'Up', 0, 1, 1, 2, 1);
+        this.shortcut('Half: Bottom', 'Down', 1, 1, 1, 2, 1);
 
-        this.shortcut('Two Thirds: (1) Left', 'E', 0, 1, 2, 1, 3);
-        this.shortcut('Two Thirds: (2) Center', 'R', -2, 1, 2, 1, 3);
-        this.shortcut('Two Thirds: (3) Right', 'T', 1, 1, 2, 1, 3);
+        this.shortcut('Two Thirds: Left', 'E', 0, 1, 2, 1, 3);
+        this.shortcut('Two Thirds: Center', 'R', -2, 1, 2, 1, 3);
+        this.shortcut('Two Thirds: Right', 'T', 1, 1, 2, 1, 3);
+
+        this.shortcut('Three Fourths: Left', 'N', 0, 1, 3, 1, 4);
+        this.shortcut('Three Fourths: Right', 'M', 1, 1, 3, 1, 4);
 
         this.shortcut('Center', 'C', -1, 1, 1, 1, 1);
         this.shortcut('Maximize', 'Return', 0, 1, 1, 1, 1);
@@ -283,32 +292,32 @@ export default class GnomeRectangle extends Extension {
         this.shortcut('Maximize: Height', 'Shift+Alt+Up', -4, 0, 0, 0, 0);
         this.shortcut('Maximize: Width', 'Shift+Alt+Right', -3, 0, 0, 0, 0);
 
-        this.shortcut('Stretch: (1) Top', 'Alt+Up', -6, 0, 0, 0, 0);
-        this.shortcut('Stretch: (1) Bottom', 'Alt+Down', -6, 1, 0, 0, 0);
-        this.shortcut('Stretch: (2) Left', 'Alt+Left', -6, 2, 0, 0, 0);
-        this.shortcut('Stretch: (2) Right', 'Alt+Right', -6, 3, 0, 0, 0);
-        this.shortcut('Stretch: Step: (1) Bottom Left', 'KP_1', -7, -1, 1, 1, 1);
-        this.shortcut('Stretch: Step: (2) Bottom', 'KP_2', -7, 0, 1, 1, 1);
-        this.shortcut('Stretch: Step: (3) Bottom Right', 'KP_3', -7, 1, 1, 1, 1);
-        this.shortcut('Stretch: Step: (4) Left', 'KP_4', -7, -1, 0, 1, 1);
-        this.shortcut('Stretch: Step: (5) Right', 'KP_6', -7, 1, 0, 1, 1);
-        this.shortcut('Stretch: Step: (6) Top Left', 'KP_7', -7, -1, -1, 1, 1);
-        this.shortcut('Stretch: Step: (7) Top', 'KP_8', -7, 0, -1, 1, 1);
-        this.shortcut('Stretch: Step: (8) Top Right', 'KP_9', -7, 1, -1, 1, 1);
+        this.shortcut('Stretch: Top', 'Alt+Up', -6, 0, 0, 0, 0);
+        this.shortcut('Stretch: Bottom', 'Alt+Down', -6, 1, 0, 0, 0);
+        this.shortcut('Stretch: Left', 'Alt+Left', -6, 2, 0, 0, 0);
+        this.shortcut('Stretch: Right', 'Alt+Right', -6, 3, 0, 0, 0);
+        this.shortcut('Stretch: Step: Bottom Left', 'KP_1', -7, -1, 1, 1, 1);
+        this.shortcut('Stretch: Step: Bottom', 'KP_2', -7, 0, 1, 1, 1);
+        this.shortcut('Stretch: Step: Bottom Right', 'KP_3', -7, 1, 1, 1, 1);
+        this.shortcut('Stretch: Step: Left', 'KP_4', -7, -1, 0, 1, 1);
+        this.shortcut('Stretch: Step: Right', 'KP_6', -7, 1, 0, 1, 1);
+        this.shortcut('Stretch: Step: Top Left', 'KP_7', -7, -1, -1, 1, 1);
+        this.shortcut('Stretch: Step: Top', 'KP_8', -7, 0, -1, 1, 1);
+        this.shortcut('Stretch: Step: Top Right', 'KP_9', -7, 1, -1, 1, 1);
 
-        this.shortcut('Move: (1) Bottom Left', 'Alt+KP_1', -5, -1, 1, 1, 1);
-        this.shortcut('Move: (2) Bottom', 'Alt+KP_2', -5, 0, 1, 1, 1);
-        this.shortcut('Move: (3) Bottom Right', 'Alt+KP_3', -5, 1, 1, 1, 1);
-        this.shortcut('Move: (4) Left', 'Alt+KP_4', -5, -1, 0, 1, 1);
-        this.shortcut('Move: (5) Right', 'Alt+KP_6', -5, 1, 0, 1, 1);
-        this.shortcut('Move: (6) Top Left', 'Alt+KP_7', -5, -1, -1, 1, 1);
-        this.shortcut('Move: (7) Top', 'Alt+KP_8', -5, 0, -1, 1, 1);
-        this.shortcut('Move: (8) Top Right', 'Alt+KP_9', -5, 1, -1, 1, 1);
+        this.shortcut('Move: Bottom Left', 'Alt+KP_1', -5, -1, 1, 1, 1);
+        this.shortcut('Move: Bottom', 'Alt+KP_2', -5, 0, 1, 1, 1);
+        this.shortcut('Move: Bottom Right', 'Alt+KP_3', -5, 1, 1, 1, 1);
+        this.shortcut('Move: Left', 'Alt+KP_4', -5, -1, 0, 1, 1);
+        this.shortcut('Move: Right', 'Alt+KP_6', -5, 1, 0, 1, 1);
+        this.shortcut('Move: Top Left', 'Alt+KP_7', -5, -1, -1, 1, 1);
+        this.shortcut('Move: Top', 'Alt+KP_8', -5, 0, -1, 1, 1);
+        this.shortcut('Move: Top Right', 'Alt+KP_9', -5, 1, -1, 1, 1);
 
-        this.shortcut('Move To Monitor: (1) Top', 'Shift+Up', -8, Meta.DisplayDirection.UP, 0, 0, 0);
-        this.shortcut('Move To Monitor: (1) Bottom', 'Shift+Down', -8, Meta.DisplayDirection.DOWN, 0, 0, 0);
-        this.shortcut('Move To Monitor: (2) Left', 'Shift+Left', -8, Meta.DisplayDirection.LEFT, 0, 0, 0);
-        this.shortcut('Move To Monitor: (2) Right', 'Shift+Right', -8, Meta.DisplayDirection.RIGHT, 0, 0, 0);
+        this.shortcut('Move To Monitor: Top', 'Shift+Up', -8, Meta.DisplayDirection.UP, 0, 0, 0);
+        this.shortcut('Move To Monitor: Bottom', 'Shift+Down', -8, Meta.DisplayDirection.DOWN, 0, 0, 0);
+        this.shortcut('Move To Monitor: Left', 'Shift+Left', -8, Meta.DisplayDirection.LEFT, 0, 0, 0);
+        this.shortcut('Move To Monitor: Right', 'Shift+Right', -8, Meta.DisplayDirection.RIGHT, 0, 0, 0);
     }
 }
 

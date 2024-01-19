@@ -283,8 +283,8 @@ export default class GnomeRectangle extends Extension {
         this.shortcut('Two Thirds: Center', 'R', -2, 1, 2, 1, 3);
         this.shortcut('Two Thirds: Right', 'T', 1, 1, 2, 1, 3);
 
-        this.shortcut('Three Fourths: Left', 'N', 0, 1, 3, 1, 4);
-        this.shortcut('Three Fourths: Right', 'M', 1, 1, 3, 1, 4);
+        this.shortcut('Three Fourths: Left', 'Shift+N', 0, 1, 3, 1, 4);
+        this.shortcut('Three Fourths: Right', 'Shift+M', 1, 1, 3, 1, 4);
 
         this.shortcut('Center', 'C', -1, 1, 1, 1, 1);
         this.shortcut('Maximize', 'Return', 0, 1, 1, 1, 1);

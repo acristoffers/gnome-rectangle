@@ -1,12 +1,9 @@
-import GLib from '@girs/glib-2.0';
-import Gio from '@girs/gio-2.0';
-import Meta from '@girs/meta-13';
-import Shell from '@girs/shell-13';
-import { Extensions, Ui } from '@girs/gnome-shell';
-
-const global = Shell.Global.get();
-const Main = Ui.main;
-const Extension = Extensions.extension.Extension;
+import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
+import Meta from 'gi://Meta';
+import Shell from 'gi://Shell';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 class Geometry {
   x: number = 0

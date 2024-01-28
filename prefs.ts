@@ -1,10 +1,7 @@
-import Gtk from '@girs/gtk-4.0';
-import Adw from '@girs/adw-1';
-import Gio from '@girs/gio-2.0';
-import { Extensions } from '@girs/gnome-shell';
-
-const _ = Extensions.prefs.gettext;
-const ExtensionPreferences = Extensions.prefs.ExtensionPreferences;
+import Gtk from 'gi://Gtk';
+import Adw from 'gi://Adw';
+import Gio from 'gi://Gio';
+import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 export default class GnomeRectanglePreferences extends ExtensionPreferences {
   _settings?: Gio.Settings

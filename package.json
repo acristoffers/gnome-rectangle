@@ -15,20 +15,13 @@
   },
   "homepage": "https://github.com/acristoffers/gnome-rectangle#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-node-resolve": "^15.2.3",
     "eslint": "^8.56.0",
     "eslint-plugin-jsdoc": "^48.0.4",
-    "rollup": "^4.9.6",
-    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@girs/gjs": "^3.2.7",
     "@girs/gnome-shell": "^45.0.0-beta8"
-  },
-  "scripts": {
-    "build": "rollup -c"
   },
   "sideEffects": false
 }

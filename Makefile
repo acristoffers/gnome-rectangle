@@ -4,10 +4,7 @@ node_modules:
 	npm install
 
 dist/extension.js dist/prefs.js: node_modules
-	npm run build
-	@# Removes imports which are not captured. Rollup is creating loads of those.
-	@sed -i "/import 'resource:/d" dist/extension.js
-	@sed -i "/import 'resource:/d" dist/prefs.js
+	tsc --build tsconfig.json
 
 pack: dist/extension.js
 	@cp -r schemas dist/

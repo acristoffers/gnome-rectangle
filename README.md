@@ -68,18 +68,4 @@ It allows manual tiling with the following shortcuts:
 - Move: Top: `Super+Ctrl+Alt+8`
 - Move: Top Right: `Super+Ctrl+Alt+9`
 
-# Installation 
-
-GNOME 45+:
-
-```bash
-git clone https://github.com/acristoffers/gnome-rectangle ~/.local/share/gnome-shell/extensions/rectangle@acristoffers.me
-```
-
-GNOME 42/43/44:
-
-```bash
-git clone https://github.com/acristoffers/gnome-rectangle -b GNOME42 ~/.local/share/gnome-shell/extensions/rectangle@acristoffers.me
-```
-
 [ego]: https://extensions.gnome.org/extension/6553/rectangle

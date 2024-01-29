@@ -1,7 +1,7 @@
 NAME=gnome-rectangle
 DOMAIN=acristoffers.me
 
-.PHONY: all pack install clan
+.PHONY: all pack install clean
 
 all: dist/extension.js
 

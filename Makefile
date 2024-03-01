@@ -1,4 +1,4 @@
-NAME=gnome-rectangle
+NAME=rectangle
 DOMAIN=acristoffers.me
 
 .PHONY: all pack install clean

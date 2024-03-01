@@ -17,6 +17,13 @@ class Paddings {
   outer: number = 0
 }
 
+class Margins {
+  bottom: number = 0
+  left: number = 0
+  right: number = 0
+  top: number = 0
+}
+
 class AnimationState {
   id?: number
   start: Geometry = new Geometry()
@@ -65,13 +72,28 @@ export default class GnomeRectangle extends Extension {
   }
 
   screenSize() {
-    return this.focusedWindow().get_work_area_current_monitor();
+    let workarea = this.focusedWindow().get_work_area_current_monitor();
+    const margins = this.margins();
+    workarea.x += margins.left;
+    workarea.y += margins.top;
+    workarea.width -= margins.left + margins.right;
+    workarea.height -= margins.top + margins.bottom;
+    return workarea;
   }
 
   paddings(): Paddings {
     return {
       inner: this.gsettings?.get_value('padding-inner').deepUnpack() ?? 8,
       outer: this.gsettings?.get_value('padding-outer').deepUnpack() ?? 8,
+    };
+  }
+
+  margins(): Margins {
+    return {
+      bottom: this.gsettings?.get_value('margin-bottom').deepUnpack() ?? 0,
+      left: this.gsettings?.get_value('margin-left').deepUnpack() ?? 0,
+      right: this.gsettings?.get_value('margin-right').deepUnpack() ?? 0,
+      top: this.gsettings?.get_value('margin-top').deepUnpack() ?? 0,
     };
   }
 

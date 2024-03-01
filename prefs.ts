@@ -70,10 +70,64 @@ export default class GnomeRectanglePreferences extends ExtensionPreferences {
     });
     paddingGroup.add(paddingOuter);
 
+    const marginGroup = new Adw.PreferencesGroup({
+      title: _('Margins'),
+      description: _('Finer control of the workspace margins (to account for docks)'),
+    });
+    page.add(marginGroup);
+
+    const marginTop = new Adw.SpinRow({
+      title: _('Top'),
+      subtitle: _('Top margin between screen and windows'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 1000,
+        step_increment: 1
+      })
+    });
+    marginGroup.add(marginTop);
+
+    const marginRight = new Adw.SpinRow({
+      title: _('Right'),
+      subtitle: _('Right margin between screen and windows'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 1000,
+        step_increment: 1
+      })
+    });
+    marginGroup.add(marginRight);
+
+    const marginBottom = new Adw.SpinRow({
+      title: _('Bottom'),
+      subtitle: _('Bottom margin between screen and windows'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 1000,
+        step_increment: 1
+      })
+    });
+    marginGroup.add(marginBottom);
+
+    const marginLeft = new Adw.SpinRow({
+      title: _('Left'),
+      subtitle: _('Left margin between screen and windows'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 1000,
+        step_increment: 1
+      })
+    });
+    marginGroup.add(marginLeft);
+
     this._settings!.bind('animate-movement', animationEnabled, 'active', Gio.SettingsBindFlags.DEFAULT);
     this._settings!.bind('animation-duration', animationDuration, 'value', Gio.SettingsBindFlags.DEFAULT);
     this._settings!.bind('padding-inner', paddingInner, 'value', Gio.SettingsBindFlags.DEFAULT);
     this._settings!.bind('padding-outer', paddingOuter, 'value', Gio.SettingsBindFlags.DEFAULT);
+    this._settings!.bind('margin-top', marginTop, 'value', Gio.SettingsBindFlags.DEFAULT);
+    this._settings!.bind('margin-right', marginRight, 'value', Gio.SettingsBindFlags.DEFAULT);
+    this._settings!.bind('margin-bottom', marginBottom, 'value', Gio.SettingsBindFlags.DEFAULT);
+    this._settings!.bind('margin-left', marginLeft, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     return page;
   }

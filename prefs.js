@@ -105,10 +105,96 @@ function generalPage(window) {
     paddingOuter.add_suffix(paddingOuterWidget);
     paddingOuter.set_activatable_widget(paddingOuterWidget);
 
+    const marginsGroup = new Adw.PreferencesGroup({
+        title: _('Margins'),
+        description: _('Finer control of the workspace margins (to account for docks)'),
+    });
+    page.add(marginsGroup);
+
+    const marginTop = new Adw.ActionRow({
+        title: _('Top'),
+        subtitle: _('Top margin between windows and the screen'),
+    });
+    marginsGroup.add(marginTop);
+
+    const marginTopWidget = new Gtk.SpinButton({
+        adjustment: new Gtk.Adjustment({
+            lower: 0,
+            upper: 1000,
+            step_increment: 1,
+        }),
+        valign: Gtk.Align.CENTER,
+        snap_to_ticks: true,
+        visible: true,
+    });
+    marginTop.add_suffix(marginTopWidget);
+    marginTop.set_activatable_widget(marginTopWidget);
+
+    const marginRight = new Adw.ActionRow({
+        title: _('Right'),
+        subtitle: _('Right margin between windows and the screen'),
+    });
+    marginsGroup.add(marginRight);
+
+    const marginRightWidget = new Gtk.SpinButton({
+        adjustment: new Gtk.Adjustment({
+            lower: 0,
+            upper: 1000,
+            step_increment: 1,
+        }),
+        valign: Gtk.Align.CENTER,
+        snap_to_ticks: true,
+        visible: true,
+    });
+    marginRight.add_suffix(marginRightWidget);
+    marginRight.set_activatable_widget(marginRightWidget);
+
+    const marginBottom = new Adw.ActionRow({
+        title: _('Bottom'),
+        subtitle: _('Bottom margin between windows and the screen'),
+    });
+    marginsGroup.add(marginBottom);
+
+    const marginBottomWidget = new Gtk.SpinButton({
+        adjustment: new Gtk.Adjustment({
+            lower: 0,
+            upper: 1000,
+            step_increment: 1,
+        }),
+        valign: Gtk.Align.CENTER,
+        snap_to_ticks: true,
+        visible: true,
+    });
+    marginBottom.add_suffix(marginBottomWidget);
+    marginBottom.set_activatable_widget(marginBottomWidget);
+
+    const marginLeft = new Adw.ActionRow({
+        title: _('Left'),
+        subtitle: _('Left margin between windows and the screen'),
+    });
+    marginsGroup.add(marginLeft);
+
+    const marginLeftWidget = new Gtk.SpinButton({
+        adjustment: new Gtk.Adjustment({
+            lower: 0,
+            upper: 1000,
+            step_increment: 1,
+        }),
+        valign: Gtk.Align.CENTER,
+        snap_to_ticks: true,
+        visible: true,
+    });
+    marginLeft.add_suffix(marginLeftWidget);
+    marginLeft.set_activatable_widget(marginLeftWidget);
+
     window._settings.bind('animate-movement', animationEnabledWidget, 'active', Gio.SettingsBindFlags.DEFAULT);
     window._settings.bind('animation-duration', animationDurationWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
     window._settings.bind('padding-inner', paddingInnerWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
     window._settings.bind('padding-outer', paddingOuterWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
+    window._settings.bind('margin-top', marginTopWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
+    window._settings.bind('margin-right', marginRightWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
+    window._settings.bind('margin-bottom', marginBottomWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
+    window._settings.bind('margin-left', marginLeftWidget, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     return page;
 }

@@ -37,13 +37,28 @@ class Rectangle {
     }
 
     screenSize() {
-        return this.focusedWindow().get_work_area_current_monitor();
+        let workarea = this.focusedWindow().get_work_area_current_monitor();
+        const margins = this.margins();
+        workarea.x += margins.left;
+        workarea.y += margins.top;
+        workarea.width -= margins.left + margins.right;
+        workarea.height -= margins.top + margins.bottom;
+        return workarea;
     }
 
     paddings() {
         return {
             inner: this.gsettings.get_value('padding-inner').deep_unpack(),
             outer: this.gsettings.get_value('padding-outer').deep_unpack(),
+        };
+    }
+
+    margins() {
+        return {
+            bottom: this.gsettings.get_value('margin-bottom').deepUnpack(),
+            left: this.gsettings.get_value('margin-left').deepUnpack(),
+            right: this.gsettings.get_value('margin-right').deepUnpack(),
+            top: this.gsettings.get_value('margin-top').deepUnpack(),
         };
     }
 

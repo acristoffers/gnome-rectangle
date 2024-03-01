@@ -4,16 +4,14 @@ import Gio from 'gi://Gio';
 import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 export default class GnomeRectanglePreferences extends ExtensionPreferences {
-  _settings?: Gio.Settings
-
   fillPreferencesWindow(window: Adw.PreferencesWindow) {
-    this._settings = this.getSettings();
+    const settings = this.getSettings();
 
-    window.add(this.generalPage());
+    window.add(this.generalPage(settings));
     window.add(this.shortcutsPage())
   }
 
-  generalPage() {
+  generalPage(settings?: Gio.Settings) {
     const page = new Adw.PreferencesPage({
       title: _('General'),
       icon_name: 'dialog-information-symbolic',
@@ -120,14 +118,14 @@ export default class GnomeRectanglePreferences extends ExtensionPreferences {
     });
     marginGroup.add(marginLeft);
 
-    this._settings!.bind('animate-movement', animationEnabled, 'active', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('animation-duration', animationDuration, 'value', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('padding-inner', paddingInner, 'value', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('padding-outer', paddingOuter, 'value', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('margin-top', marginTop, 'value', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('margin-right', marginRight, 'value', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('margin-bottom', marginBottom, 'value', Gio.SettingsBindFlags.DEFAULT);
-    this._settings!.bind('margin-left', marginLeft, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('animate-movement', animationEnabled, 'active', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('animation-duration', animationDuration, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('padding-inner', paddingInner, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('padding-outer', paddingOuter, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('margin-top', marginTop, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('margin-right', marginRight, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('margin-bottom', marginBottom, 'value', Gio.SettingsBindFlags.DEFAULT);
+    settings!.bind('margin-left', marginLeft, 'value', Gio.SettingsBindFlags.DEFAULT);
 
     return page;
   }

@@ -1,0 +1,5 @@
+nix/* linguist-vendored
+Makefile linguist-vendored
+*.nix linguist-vendored
+*.sh linguist-vendored
+*.json linguist-vendored

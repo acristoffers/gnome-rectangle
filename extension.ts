@@ -44,15 +44,18 @@ export default class GnomeRectangle extends Extension {
   animationState?: AnimationState
   keyManager?: ShortcutsManager
   gsettings?: Gio.Settings
+  shortcuts = new Map<string, number>()
 
   enable() {
     this.animationState = new AnimationState();
     this.keyManager = new ShortcutsManager();
     this.gsettings = this.getSettings();
+    this.gsettings.connect('changed', this.settingsChanged.bind(this));
     this.registerShortcuts();
   }
 
   disable() {
+    this.shortcuts.clear();
     this.keyManager?.removeAll();
     this.keyManager?.destroy();
     this.keyManager = undefined;
@@ -280,97 +283,110 @@ export default class GnomeRectangle extends Extension {
     }
   }
 
-  shortcut(_text: string, shortcut: string, i: number, rs: number, cs: number, r: number, c: number) {
-    shortcut = `Ctrl+Meta+${shortcut}`;
-    shortcut = shortcut
-      .replaceAll('Ctrl', '<Control>')
-      .replaceAll('Meta', '<Super>')
-      .replaceAll('Alt', '<Alt>')
-      .replaceAll('Shift', '<Shift>')
-      .replaceAll('+', '');
-    this.keyManager!.add(shortcut, () => this.manage(i, rs, cs, r, c));
+  registerShortcut(key: string, i: number, rs: number, cs: number, r: number, c: number) {
+    let action = this.shortcuts.get(key);
+    if (action != null) {
+      this.keyManager?.remove(action);
+      this.shortcuts.delete(key);
+    }
+
+    const [shortcut] = this.gsettings?.get_strv(key) ?? [''];
+    if (shortcut.length != 0) {
+      action = this.keyManager?.add(shortcut, () => this.manage(i, rs, cs, r, c));
+      if (action != null && action > 0) {
+        this.shortcuts.set(key, action);
+      }
+    }
+  }
+
+  settingsChanged(_settings: Gio.Settings, key: string) {
+    let action = this.shortcuts.get(key);
+    if (action != null) {
+      this.keyManager?.remove(action);
+      this.shortcuts.delete(key);
+    }
+    if (this.tiles.hasOwnProperty(key)) {
+      this.registerShortcut(key, ...this.tiles[key]);
+    }
   }
 
   registerShortcuts() {
-    this.shortcut('Quarter: Top Left', 'U', 0, 1, 1, 2, 2);
-    this.shortcut('Quarter: Top Right', 'I', 1, 1, 1, 2, 2);
-    this.shortcut('Quarter: Bottom Left', 'J', 2, 1, 1, 2, 2);
-    this.shortcut('Quarter: Bottom Right', 'K', 3, 1, 1, 2, 2);
-    this.shortcut('Quarter: Centered', 'Alt+C', -2, 1, 1, 2, 2);
-
-    this.shortcut('Fourth: First', 'V', 0, 1, 1, 1, 4);
-    this.shortcut('Fourth: Second', 'B', 1, 1, 1, 1, 4);
-    this.shortcut('Fourth: Third', 'N', 2, 1, 1, 1, 4);
-    this.shortcut('Fourth: Fourth', 'M', 3, 1, 1, 1, 4);
-
-    this.shortcut('Third: First', 'D', 0, 1, 1, 1, 3);
-    this.shortcut('Third: Second', 'F', 1, 1, 1, 1, 3);
-    this.shortcut('Third: Third', 'G', 2, 1, 1, 1, 3);
-
-    this.shortcut('Sixth: Top Left', 'Shift+U', 0, 1, 1, 2, 3);
-    this.shortcut('Sixth: Top Center', 'Shift+I', 1, 1, 1, 2, 3);
-    this.shortcut('Sixth: Top Right', 'Shift+O', 2, 1, 1, 2, 3);
-    this.shortcut('Sixth: Bottom Left', 'Shift+J', 3, 1, 1, 2, 3);
-    this.shortcut('Sixth: Bottom Center', 'Shift+K', 4, 1, 1, 2, 3);
-    this.shortcut('Sixth: Bottom Right', 'Shift+L', 5, 1, 1, 2, 3);
-
-    this.shortcut('Ninth: Top Left', 'Alt+U', 0, 1, 1, 3, 3);
-    this.shortcut('Ninth: Top Center', 'Alt+I', 1, 1, 1, 3, 3);
-    this.shortcut('Ninth: Top Right', 'Alt+O', 2, 1, 1, 3, 3);
-    this.shortcut('Ninth: Middle Left', 'Alt+J', 3, 1, 1, 3, 3);
-    this.shortcut('Ninth: Middle Center', 'Alt+K', 4, 1, 1, 3, 3);
-    this.shortcut('Ninth: Middle Right', 'Alt+L', 5, 1, 1, 3, 3);
-    this.shortcut('Ninth: Bottom Left', 'Alt+N', 6, 1, 1, 3, 3);
-    this.shortcut('Ninth: Bottom Center', 'Alt+M', 7, 1, 1, 3, 3);
-    this.shortcut('Ninth: Bottom Right', 'Alt+comma', 8, 1, 1, 3, 3);
-
-    this.shortcut('Half: Center (Vertical)', 'Shift+C', -2, 1, 1, 1, 2);
-    this.shortcut('Half: Center (Horizontal)', 'Shift+V', -2, 1, 1, 2, 1);
-    this.shortcut('Half: Left', 'Left', 0, 1, 1, 1, 2);
-    this.shortcut('Half: Right', 'Right', 1, 1, 1, 1, 2);
-    this.shortcut('Half: Top', 'Up', 0, 1, 1, 2, 1);
-    this.shortcut('Half: Bottom', 'Down', 1, 1, 1, 2, 1);
-
-    this.shortcut('Two Thirds: Left', 'E', 0, 1, 2, 1, 3);
-    this.shortcut('Two Thirds: Center', 'R', -2, 1, 2, 1, 3);
-    this.shortcut('Two Thirds: Right', 'T', 1, 1, 2, 1, 3);
-
-    this.shortcut('Three Fourths: Left', 'Shift+N', 0, 1, 3, 1, 4);
-    this.shortcut('Three Fourths: Right', 'Shift+M', 1, 1, 3, 1, 4);
-
-    this.shortcut('Center', 'C', -1, 1, 1, 1, 1);
-    this.shortcut('Maximize', 'Return', 0, 1, 1, 1, 1);
-    this.shortcut('Maximize: Almost', 'Shift+Return', 33, 30, 30, 32, 32);
-    this.shortcut('Maximize: Height', 'Shift+Alt+Up', -4, 0, 0, 0, 0);
-    this.shortcut('Maximize: Width', 'Shift+Alt+Right', -3, 0, 0, 0, 0);
-
-    this.shortcut('Stretch: Top', 'Alt+Up', -6, 0, 0, 0, 0);
-    this.shortcut('Stretch: Bottom', 'Alt+Down', -6, 1, 0, 0, 0);
-    this.shortcut('Stretch: Left', 'Alt+Left', -6, 2, 0, 0, 0);
-    this.shortcut('Stretch: Right', 'Alt+Right', -6, 3, 0, 0, 0);
-    this.shortcut('Stretch: Step: Bottom Left', 'KP_1', -7, -1, 1, 1, 1);
-    this.shortcut('Stretch: Step: Bottom', 'KP_2', -7, 0, 1, 1, 1);
-    this.shortcut('Stretch: Step: Bottom Right', 'KP_3', -7, 1, 1, 1, 1);
-    this.shortcut('Stretch: Step: Left', 'KP_4', -7, -1, 0, 1, 1);
-    this.shortcut('Stretch: Step: Right', 'KP_6', -7, 1, 0, 1, 1);
-    this.shortcut('Stretch: Step: Top Left', 'KP_7', -7, -1, -1, 1, 1);
-    this.shortcut('Stretch: Step: Top', 'KP_8', -7, 0, -1, 1, 1);
-    this.shortcut('Stretch: Step: Top Right', 'KP_9', -7, 1, -1, 1, 1);
-
-    this.shortcut('Move: Bottom Left', 'Alt+KP_1', -5, -1, 1, 1, 1);
-    this.shortcut('Move: Bottom', 'Alt+KP_2', -5, 0, 1, 1, 1);
-    this.shortcut('Move: Bottom Right', 'Alt+KP_3', -5, 1, 1, 1, 1);
-    this.shortcut('Move: Left', 'Alt+KP_4', -5, -1, 0, 1, 1);
-    this.shortcut('Move: Right', 'Alt+KP_6', -5, 1, 0, 1, 1);
-    this.shortcut('Move: Top Left', 'Alt+KP_7', -5, -1, -1, 1, 1);
-    this.shortcut('Move: Top', 'Alt+KP_8', -5, 0, -1, 1, 1);
-    this.shortcut('Move: Top Right', 'Alt+KP_9', -5, 1, -1, 1, 1);
-
-    this.shortcut('Move To Monitor: Top', 'Shift+Up', -8, Meta.DisplayDirection.UP, 0, 0, 0);
-    this.shortcut('Move To Monitor: Bottom', 'Shift+Down', -8, Meta.DisplayDirection.DOWN, 0, 0, 0);
-    this.shortcut('Move To Monitor: Left', 'Shift+Left', -8, Meta.DisplayDirection.LEFT, 0, 0, 0);
-    this.shortcut('Move To Monitor: Right', 'Shift+Right', -8, Meta.DisplayDirection.RIGHT, 0, 0, 0);
+    for (const key in this.tiles) {
+      if (this.tiles.hasOwnProperty(key)) {
+        this.registerShortcut(key, ...this.tiles[key]);
+      }
+    }
   }
+
+  tiles: { [key: string]: [number, number, number, number, number] } = {
+    'tile-quarter-top-left': [0, 1, 1, 2, 2],
+    'tile-quarter-top-right': [1, 1, 1, 2, 2],
+    'tile-quarter-bottom-left': [2, 1, 1, 2, 2],
+    'tile-quarter-bottom-right': [3, 1, 1, 2, 2],
+    'tile-quarter-centered': [-2, 1, 1, 2, 2],
+    'tile-fourth-first': [0, 1, 1, 1, 4],
+    'tile-fourth-second': [1, 1, 1, 1, 4],
+    'tile-fourth-third': [2, 1, 1, 1, 4],
+    'tile-fourth-fourth': [3, 1, 1, 1, 4],
+    'tile-third-first': [0, 1, 1, 1, 3],
+    'tile-third-second': [1, 1, 1, 1, 3],
+    'tile-third-third': [2, 1, 1, 1, 3],
+    'tile-sixth-top-left': [0, 1, 1, 2, 3],
+    'tile-sixth-top-center': [1, 1, 1, 2, 3],
+    'tile-sixth-top-right': [2, 1, 1, 2, 3],
+    'tile-sixth-bottom-left': [3, 1, 1, 2, 3],
+    'tile-sixth-bottom-center': [4, 1, 1, 2, 3],
+    'tile-sixth-bottom-right': [5, 1, 1, 2, 3],
+    'tile-ninth-top-left': [0, 1, 1, 3, 3],
+    'tile-ninth-top-center': [1, 1, 1, 3, 3],
+    'tile-ninth-top-right': [2, 1, 1, 3, 3],
+    'tile-ninth-middle-left': [3, 1, 1, 3, 3],
+    'tile-ninth-middle-center': [4, 1, 1, 3, 3],
+    'tile-ninth-middle-right': [5, 1, 1, 3, 3],
+    'tile-ninth-bottom-left': [6, 1, 1, 3, 3],
+    'tile-ninth-bottom-center': [7, 1, 1, 3, 3],
+    'tile-ninth-bottom-right': [8, 1, 1, 3, 3],
+    'tile-half-center-vertical': [-2, 1, 1, 1, 2],
+    'tile-half-center-horizontal': [-2, 1, 1, 2, 1],
+    'tile-half-left': [0, 1, 1, 1, 2],
+    'tile-half-right': [1, 1, 1, 1, 2],
+    'tile-half-top': [0, 1, 1, 2, 1],
+    'tile-half-bottom': [1, 1, 1, 2, 1],
+    'tile-two-thirds-left': [0, 1, 2, 1, 3],
+    'tile-two-thirds-center': [-2, 1, 2, 1, 3],
+    'tile-two-thirds-right': [1, 1, 2, 1, 3],
+    'tile-three-fourths-left': [0, 1, 3, 1, 4],
+    'tile-three-fourths-right': [1, 1, 3, 1, 4],
+    'tile-center': [-1, 1, 1, 1, 1],
+    'tile-maximize': [0, 1, 1, 1, 1],
+    'tile-maximize-almost': [33, 30, 30, 32, 32],
+    'tile-maximize-height': [-4, 0, 0, 0, 0],
+    'tile-maximize-width': [-3, 0, 0, 0, 0],
+    'tile-stretch-top': [-6, 0, 0, 0, 0],
+    'tile-stretch-bottom': [-6, 1, 0, 0, 0],
+    'tile-stretch-left': [-6, 2, 0, 0, 0],
+    'tile-stretch-right': [-6, 3, 0, 0, 0],
+    'tile-stretch-step-bottom-left': [-7, -1, 1, 1, 1],
+    'tile-stretch-step-bottom': [-7, 0, 1, 1, 1],
+    'tile-stretch-step-bottom-right': [-7, 1, 1, 1, 1],
+    'tile-stretch-step-left': [-7, -1, 0, 1, 1],
+    'tile-stretch-step-right': [-7, 1, 0, 1, 1],
+    'tile-stretch-step-top-left': [-7, -1, -1, 1, 1],
+    'tile-stretch-step-top': [-7, 0, -1, 1, 1],
+    'tile-stretch-step-top-right': [-7, 1, -1, 1, 1],
+    'tile-move-bottom-left': [-5, -1, 1, 1, 1],
+    'tile-move-bottom': [-5, 0, 1, 1, 1],
+    'tile-move-bottom-right': [-5, 1, 1, 1, 1],
+    'tile-move-left': [-5, -1, 0, 1, 1],
+    'tile-move-right': [-5, 1, 0, 1, 1],
+    'tile-move-top-left': [-5, -1, -1, 1, 1],
+    'tile-move-top': [-5, 0, -1, 1, 1],
+    'tile-move-top-right': [-5, 1, -1, 1, 1],
+    'tile-move-to-monitor-top': [-8, Meta.DisplayDirection.UP, 0, 0, 0],
+    'tile-move-to-monitor-bottom': [-8, Meta.DisplayDirection.DOWN, 0, 0, 0],
+    'tile-move-to-monitor-left': [-8, Meta.DisplayDirection.LEFT, 0, 0, 0],
+    'tile-move-to-monitor-right': [-8, Meta.DisplayDirection.RIGHT, 0, 0, 0],
+  };
 }
 
 /**

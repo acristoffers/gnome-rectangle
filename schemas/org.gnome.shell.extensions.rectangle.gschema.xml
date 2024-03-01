@@ -41,5 +41,342 @@
       <summary>Left margin</summary>
       <description>Left margin between window and desktop</description>
     </key>
+
+    <key type="as" name="tile-quarter-top-left">
+      <default><![CDATA[['<Control><Super>U']]]></default>
+      <summary>Quarter: Top Left</summary>
+      <description>Quarter: Top Left</description>
+    </key>
+    <key type="as" name="tile-quarter-top-right">
+      <default><![CDATA[['<Control><Super>I']]]></default>
+      <summary>Quarter: Top Right</summary>
+      <description>Quarter: Top Right</description>
+    </key>
+    <key type="as" name="tile-quarter-bottom-left">
+      <default><![CDATA[['<Control><Super>J']]]></default>
+      <summary>Quarter: Bottom Left</summary>
+      <description>Quarter: Bottom Left</description>
+    </key>
+    <key type="as" name="tile-quarter-bottom-right">
+      <default><![CDATA[['<Control><Super>K']]]></default>
+      <summary>Quarter: Bottom Right</summary>
+      <description>Quarter: Bottom Right</description>
+    </key>
+    <key type="as" name="tile-quarter-centered">
+      <default><![CDATA[['<Control><Super><Alt>C']]]></default>
+      <summary>Quarter: Centered</summary>
+      <description>Quarter: Centered</description>
+    </key>
+    <key type="as" name="tile-fourth-first">
+      <default><![CDATA[['<Control><Super>V']]]></default>
+      <summary>Fourth: First</summary>
+      <description>Fourth: First</description>
+    </key>
+    <key type="as" name="tile-fourth-second">
+      <default><![CDATA[['<Control><Super>B']]]></default>
+      <summary>Fourth: Second</summary>
+      <description>Fourth: Second</description>
+    </key>
+    <key type="as" name="tile-fourth-third">
+      <default><![CDATA[['<Control><Super>N']]]></default>
+      <summary>Fourth: Third</summary>
+      <description>Fourth: Third</description>
+    </key>
+    <key type="as" name="tile-fourth-fourth">
+      <default><![CDATA[['<Control><Super>M']]]></default>
+      <summary>Fourth: Fourth</summary>
+      <description>Fourth: Fourth</description>
+    </key>
+    <key type="as" name="tile-third-first">
+      <default><![CDATA[['<Control><Super>D']]]></default>
+      <summary>Third: First</summary>
+      <description>Third: First</description>
+    </key>
+    <key type="as" name="tile-third-second">
+      <default><![CDATA[['<Control><Super>F']]]></default>
+      <summary>Third: Second</summary>
+      <description>Third: Second</description>
+    </key>
+    <key type="as" name="tile-third-third">
+      <default><![CDATA[['<Control><Super>G']]]></default>
+      <summary>Third: Third</summary>
+      <description>Third: Third</description>
+    </key>
+    <key type="as" name="tile-sixth-top-left">
+      <default><![CDATA[['<Control><Super><Shift>U']]]></default>
+      <summary>Sixth: Top Left</summary>
+      <description>Sixth: Top Left</description>
+    </key>
+    <key type="as" name="tile-sixth-top-center">
+      <default><![CDATA[['<Control><Super><Shift>I']]]></default>
+      <summary>Sixth: Top Center</summary>
+      <description>Sixth: Top Center</description>
+    </key>
+    <key type="as" name="tile-sixth-top-right">
+      <default><![CDATA[['<Control><Super><Shift>O']]]></default>
+      <summary>Sixth: Top Right</summary>
+      <description>Sixth: Top Right</description>
+    </key>
+    <key type="as" name="tile-sixth-bottom-left">
+      <default><![CDATA[['<Control><Super><Shift>J']]]></default>
+      <summary>Sixth: Bottom Left</summary>
+      <description>Sixth: Bottom Left</description>
+    </key>
+    <key type="as" name="tile-sixth-bottom-center">
+      <default><![CDATA[['<Control><Super><Shift>K']]]></default>
+      <summary>Sixth: Bottom Center</summary>
+      <description>Sixth: Bottom Center</description>
+    </key>
+    <key type="as" name="tile-sixth-bottom-right">
+      <default><![CDATA[['<Control><Super><Shift>L']]]></default>
+      <summary>Sixth: Bottom Right</summary>
+      <description>Sixth: Bottom Right</description>
+    </key>
+    <key type="as" name="tile-ninth-top-left">
+      <default><![CDATA[['<Control><Super><Alt>U']]]></default>
+      <summary>Ninth: Top Left</summary>
+      <description>Ninth: Top Left</description>
+    </key>
+    <key type="as" name="tile-ninth-top-center">
+      <default><![CDATA[['<Control><Super><Alt>I']]]></default>
+      <summary>Ninth: Top Center</summary>
+      <description>Ninth: Top Center</description>
+    </key>
+    <key type="as" name="tile-ninth-top-right">
+      <default><![CDATA[['<Control><Super><Alt>O']]]></default>
+      <summary>Ninth: Top Right</summary>
+      <description>Ninth: Top Right</description>
+    </key>
+    <key type="as" name="tile-ninth-middle-left">
+      <default><![CDATA[['<Control><Super><Alt>J']]]></default>
+      <summary>Ninth: Middle Left</summary>
+      <description>Ninth: Middle Left</description>
+    </key>
+    <key type="as" name="tile-ninth-middle-center">
+      <default><![CDATA[['<Control><Super><Alt>K']]]></default>
+      <summary>Ninth: Middle Center</summary>
+      <description>Ninth: Middle Center</description>
+    </key>
+    <key type="as" name="tile-ninth-middle-right">
+      <default><![CDATA[['<Control><Super><Alt>L']]]></default>
+      <summary>Ninth: Middle Right</summary>
+      <description>Ninth: Middle Right</description>
+    </key>
+    <key type="as" name="tile-ninth-bottom-left">
+      <default><![CDATA[['<Control><Super><Alt>N']]]></default>
+      <summary>Ninth: Bottom Left</summary>
+      <description>Ninth: Bottom Left</description>
+    </key>
+    <key type="as" name="tile-ninth-bottom-center">
+      <default><![CDATA[['<Control><Super><Alt>M']]]></default>
+      <summary>Ninth: Bottom Center</summary>
+      <description>Ninth: Bottom Center</description>
+    </key>
+    <key type="as" name="tile-ninth-bottom-right">
+      <default><![CDATA[['<Control><Super><Alt>comma']]]></default>
+      <summary>Ninth: Bottom Right</summary>
+      <description>Ninth: Bottom Right</description>
+    </key>
+    <key type="as" name="tile-half-center-vertical">
+      <default><![CDATA[['<Control><Super><Shift>C']]]></default>
+      <summary>Half: Center (Vertical)</summary>
+      <description>Half: Center (Vertical)</description>
+    </key>
+    <key type="as" name="tile-half-center-horizontal">
+      <default><![CDATA[['<Control><Super><Shift>V']]]></default>
+      <summary>Half: Center (Horizontal)</summary>
+      <description>Half: Center (Horizontal)</description>
+    </key>
+    <key type="as" name="tile-half-left">
+      <default><![CDATA[['<Control><Super>Left']]]></default>
+      <summary>Half: Left</summary>
+      <description>Half: Left</description>
+    </key>
+    <key type="as" name="tile-half-right">
+      <default><![CDATA[['<Control><Super>Right']]]></default>
+      <summary>Half: Right</summary>
+      <description>Half: Right</description>
+    </key>
+    <key type="as" name="tile-half-top">
+      <default><![CDATA[['<Control><Super>Up']]]></default>
+      <summary>Half: Top</summary>
+      <description>Half: Top</description>
+    </key>
+    <key type="as" name="tile-half-bottom">
+      <default><![CDATA[['<Control><Super>Down']]]></default>
+      <summary>Half: Bottom</summary>
+      <description>Half: Bottom</description>
+    </key>
+    <key type="as" name="tile-two-thirds-left">
+      <default><![CDATA[['<Control><Super>E']]]></default>
+      <summary>Two Thirds: Left</summary>
+      <description>Two Thirds: Left</description>
+    </key>
+    <key type="as" name="tile-two-thirds-center">
+      <default><![CDATA[['<Control><Super>R']]]></default>
+      <summary>Two Thirds: Center</summary>
+      <description>Two Thirds: Center</description>
+    </key>
+    <key type="as" name="tile-two-thirds-right">
+      <default><![CDATA[['<Control><Super>T']]]></default>
+      <summary>Two Thirds: Right</summary>
+      <description>Two Thirds: Right</description>
+    </key>
+    <key type="as" name="tile-three-fourths-left">
+      <default><![CDATA[['<Control><Super><Shift>N']]]></default>
+      <summary>Three Fourths: Left</summary>
+      <description>Three Fourths: Left</description>
+    </key>
+    <key type="as" name="tile-three-fourths-right">
+      <default><![CDATA[['<Control><Super><Shift>M']]]></default>
+      <summary>Three Fourths: Right</summary>
+      <description>Three Fourths: Right</description>
+    </key>
+    <key type="as" name="tile-center">
+      <default><![CDATA[['<Control><Super>C']]]></default>
+      <summary>Center</summary>
+      <description>Center</description>
+    </key>
+    <key type="as" name="tile-maximize">
+      <default><![CDATA[['<Control><Super>Return']]]></default>
+      <summary>Maximize</summary>
+      <description>Maximize</description>
+    </key>
+    <key type="as" name="tile-maximize-almost">
+      <default><![CDATA[['<Control><Super><Shift>Return']]]></default>
+      <summary>Maximize: Almost</summary>
+      <description>Maximize: Almost</description>
+    </key>
+    <key type="as" name="tile-maximize-height">
+      <default><![CDATA[['<Control><Super><Shift><Alt>Up']]]></default>
+      <summary>Maximize: Height</summary>
+      <description>Maximize: Height</description>
+    </key>
+    <key type="as" name="tile-maximize-width">
+      <default><![CDATA[['<Control><Super><Shift><Alt>Right']]]></default>
+      <summary>Maximize: Width</summary>
+      <description>Maximize: Width</description>
+    </key>
+    <key type="as" name="tile-stretch-top">
+      <default><![CDATA[['<Control><Super><Alt>Up']]]></default>
+      <summary>Stretch: Top</summary>
+      <description>Stretch: Top</description>
+    </key>
+    <key type="as" name="tile-stretch-bottom">
+      <default><![CDATA[['<Control><Super><Alt>Down']]]></default>
+      <summary>Stretch: Bottom</summary>
+      <description>Stretch: Bottom</description>
+    </key>
+    <key type="as" name="tile-stretch-left">
+      <default><![CDATA[['<Control><Super><Alt>Left']]]></default>
+      <summary>Stretch: Left</summary>
+      <description>Stretch: Left</description>
+    </key>
+    <key type="as" name="tile-stretch-right">
+      <default><![CDATA[['<Control><Super><Alt>Right']]]></default>
+      <summary>Stretch: Right</summary>
+      <description>Stretch: Right</description>
+    </key>
+    <key type="as" name="tile-stretch-step-bottom-left">
+      <default><![CDATA[['<Control><Super>KP_1']]]></default>
+      <summary>Stretch: Step: Bottom Left</summary>
+      <description>Stretch: Step: Bottom Left</description>
+    </key>
+    <key type="as" name="tile-stretch-step-bottom">
+      <default><![CDATA[['<Control><Super>KP_2']]]></default>
+      <summary>Stretch: Step: Bottom</summary>
+      <description>Stretch: Step: Bottom</description>
+    </key>
+    <key type="as" name="tile-stretch-step-bottom-right">
+      <default><![CDATA[['<Control><Super>KP_3']]]></default>
+      <summary>Stretch: Step: Bottom Right</summary>
+      <description>Stretch: Step: Bottom Right</description>
+    </key>
+    <key type="as" name="tile-stretch-step-left">
+      <default><![CDATA[['<Control><Super>KP_4']]]></default>
+      <summary>Stretch: Step: Left</summary>
+      <description>Stretch: Step: Left</description>
+    </key>
+    <key type="as" name="tile-stretch-step-right">
+      <default><![CDATA[['<Control><Super>KP_6']]]></default>
+      <summary>Stretch: Step: Right</summary>
+      <description>Stretch: Step: Right</description>
+    </key>
+    <key type="as" name="tile-stretch-step-top-left">
+      <default><![CDATA[['<Control><Super>KP_7']]]></default>
+      <summary>Stretch: Step: Top Left</summary>
+      <description>Stretch: Step: Top Left</description>
+    </key>
+    <key type="as" name="tile-stretch-step-top">
+      <default><![CDATA[['<Control><Super>KP_8']]]></default>
+      <summary>Stretch: Step: Top</summary>
+      <description>Stretch: Step: Top</description>
+    </key>
+    <key type="as" name="tile-stretch-step-top-right">
+      <default><![CDATA[['<Control><Super>KP_9']]]></default>
+      <summary>Stretch: Step: Top Right</summary>
+      <description>Stretch: Step: Top Right</description>
+    </key>
+    <key type="as" name="tile-move-bottom-left">
+      <default><![CDATA[['<Control><Super><Alt>KP_1']]]></default>
+      <summary>Move: Bottom Left</summary>
+      <description>Move: Bottom Left</description>
+    </key>
+    <key type="as" name="tile-move-bottom">
+      <default><![CDATA[['<Control><Super><Alt>KP_2']]]></default>
+      <summary>Move: Bottom</summary>
+      <description>Move: Bottom</description>
+    </key>
+    <key type="as" name="tile-move-bottom-right">
+      <default><![CDATA[['<Control><Super><Alt>KP_3']]]></default>
+      <summary>Move: Bottom Right</summary>
+      <description>Move: Bottom Right</description>
+    </key>
+    <key type="as" name="tile-move-left">
+      <default><![CDATA[['<Control><Super><Alt>KP_4']]]></default>
+      <summary>Move: Left</summary>
+      <description>Move: Left</description>
+    </key>
+    <key type="as" name="tile-move-right">
+      <default><![CDATA[['<Control><Super><Alt>KP_6']]]></default>
+      <summary>Move: Right</summary>
+      <description>Move: Right</description>
+    </key>
+    <key type="as" name="tile-move-top-left">
+      <default><![CDATA[['<Control><Super><Alt>KP_7']]]></default>
+      <summary>Move: Top Left</summary>
+      <description>Move: Top Left</description>
+    </key>
+    <key type="as" name="tile-move-top">
+      <default><![CDATA[['<Control><Super><Alt>KP_8']]]></default>
+      <summary>Move: Top</summary>
+      <description>Move: Top</description>
+    </key>
+    <key type="as" name="tile-move-top-right">
+      <default><![CDATA[['<Control><Super><Alt>KP_9']]]></default>
+      <summary>Move: Top Right</summary>
+      <description>Move: Top Right</description>
+    </key>
+    <key type="as" name="tile-move-to-monitor-top">
+      <default><![CDATA[['<Control><Super><Shift>Up']]]></default>
+      <summary>Move To Monitor: Top</summary>
+      <description>Move To Monitor: Top</description>
+    </key>
+    <key type="as" name="tile-move-to-monitor-bottom">
+      <default><![CDATA[['<Control><Super><Shift>Down']]]></default>
+      <summary>Move To Monitor: Bottom</summary>
+      <description>Move To Monitor: Bottom</description>
+    </key>
+    <key type="as" name="tile-move-to-monitor-left">
+      <default><![CDATA[['<Control><Super><Shift>Left']]]></default>
+      <summary>Move To Monitor: Left</summary>
+      <description>Move To Monitor: Left</description>
+    </key>
+    <key type="as" name="tile-move-to-monitor-right">
+      <default><![CDATA[['<Control><Super><Shift>Right']]]></default>
+      <summary>Move To Monitor: Right</summary>
+      <description>Move To Monitor: Right</description>
+    </key>
+
   </schema>
 </schemalist>

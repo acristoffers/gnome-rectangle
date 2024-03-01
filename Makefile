@@ -8,7 +8,7 @@ all: dist/extension.js
 node_modules: package.json
 	npm install
 
-dist/extension.js dist/prefs.js: node_modules
+dist/extension.js dist/prefs.js: node_modules extension.ts prefs.ts
 	tsc --build tsconfig.json
 
 schemas/gschemas.compiled: schemas/org.gnome.shell.extensions.$(NAME).gschema.xml

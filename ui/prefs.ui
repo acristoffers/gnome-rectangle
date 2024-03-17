@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface domain="rectangle">
+  <requires lib="gtk" version="4.0" />
+  <object class="AdwPreferencesPage" id="general-page">
+    <property name="title" translatable="yes">General</property>
+    <property name="icon_name">dialog-information-symbolic</property>
+    <child>
+      <object class="AdwPreferencesGroup" id="animation-group">
+        <property name="title" translatable="yes">Animation</property>
+        <property name="description" translatable="yes">Configure move/resize animation</property>
+        <child>
+          <object class="AdwSwitchRow" id="animation-enabled">
+            <property name="title" translatable="yes">Enable</property>
+            <property name="subtitle" translatable="yes">Wether to animate windows</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSpinRow" id="animation-duration">
+            <property name="title" translatable="yes">Duration</property>
+            <property name="subtitle" translatable="yes">Duration of animations in milliseconds</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">10000</property>
+                <property name="page-increment">100</property>
+                <property name="step-increment">10</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="paddings-group">
+        <property name="title" translatable="yes">Paddings</property>
+        <property name="description" translatable="yes">Configure the padding between windows</property>
+        <child>
+          <object class="AdwSpinRow" id="padding-inner">
+            <property name="title" translatable="yes">Inner</property>
+            <property name="subtitle" translatable="yes">Padding between windows</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSpinRow" id="padding-outer">
+            <property name="title" translatable="yes">Outer</property>
+            <property name="subtitle" translatable="yes">Padding between windows and the screen</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="marings-group">
+        <property name="title" translatable="yes">Margins</property>
+        <property name="description" translatable="yes">Finer control of the workspace margins</property>
+        <child>
+          <object class="AdwSpinRow" id="margins-top">
+            <property name="title" translatable="yes">Top</property>
+            <property name="subtitle" translatable="yes">Top margin between screen and windows</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSpinRow" id="margins-right">
+            <property name="title" translatable="yes">Right</property>
+            <property name="subtitle" translatable="yes">Right margin between screen and windows</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSpinRow" id="margins-bottom">
+            <property name="title" translatable="yes">Bottom</property>
+            <property name="subtitle" translatable="yes">Bottom margin between screen and windows</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSpinRow" id="margins-left">
+            <property name="title" translatable="yes">Left</property>
+            <property name="subtitle" translatable="yes">Left margin between screen and windows</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="AdwPreferencesPage" id="shortcuts-page">
+    <property name="title" translatable="yes">Shortcuts</property>
+    <property name="icon_name">input-keyboard</property>
+    <child>
+      <object class="AdwPreferencesGroup" id="actions-group">
+        <property name="title">Keyboard Shortcuts</property>
+        <property name="description">Manage global shortcut settings</property>
+        <child>
+          <object class="AdwActionRow" id="restore-defaults">
+            <property name="title">Restore Defaults</property>
+            <property name="subtitle">Reset all shortcuts to their default values</property>
+            <child type="suffix">
+              <object class="GtkButton" id="restore-defaults-button">
+                <property name="label">Restore</property>
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <property name="vexpand">false</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwActionRow" id="clear-all">
+            <property name="title">Clear All</property>
+            <property name="subtitle">Remove all custom shortcut settings</property>
+            <child type="suffix">
+              <object class="GtkButton" id="clear-all-button">
+                <property name="label">Clear</property>
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <property name="vexpand">false</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="maximize-group">
+        <property name="title">Maximize</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-maximize">
+            <property name="title">Maximize</property>
+            <property name="key">tile-maximize</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-maximize-almost">
+            <property name="title">Almost Maximize</property>
+            <property name="key">tile-maximize-almost</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-maximize-height">
+            <property name="title">Maximize Height</property>
+            <property name="key">tile-maximize-height</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-maximize-width">
+            <property name="title">Maximize Width</property>
+            <property name="key">tile-maximize-width</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="quarter-group">
+        <property name="title">Quarter Grid</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-quarter-top-left">
+            <property name="title">Top Left</property>
+            <property name="key">tile-quarter-top-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-quarter-top-right">
+            <property name="title">Top Right</property>
+            <property name="key">tile-quarter-top-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-quarter-bottom-left">
+            <property name="title">Bottom Left</property>
+            <property name="key">tile-quarter-bottom-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-quarter-bottom-right">
+            <property name="title">Bottom Right</property>
+            <property name="key">tile-quarter-bottom-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-quarter-centered">
+            <property name="title">Centered</property>
+            <property name="key">tile-quarter-centered</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="sixth-group">
+        <property name="title">Sixth Grid</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-sixth-top-left">
+            <property name="title">Top Left</property>
+            <property name="key">tile-sixth-top-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-sixth-top-center">
+            <property name="title">Top Center</property>
+            <property name="key">tile-sixth-top-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-sixth-top-right">
+            <property name="title">Top Right</property>
+            <property name="key">tile-sixth-top-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-sixth-bottom-left">
+            <property name="title">Bottom Left</property>
+            <property name="key">tile-sixth-bottom-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-sixth-bottom-center">
+            <property name="title">Bottom Center</property>
+            <property name="key">tile-sixth-bottom-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-sixth-bottom-right">
+            <property name="title">Bottom Right</property>
+            <property name="key">tile-sixth-bottom-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="ninth-group">
+        <property name="title">Ninth Grid</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-top-left">
+            <property name="title">Top Left</property>
+            <property name="key">tile-ninth-top-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-top-center">
+            <property name="title">Top Center</property>
+            <property name="key">tile-ninth-top-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-top-right">
+            <property name="title">Top Right</property>
+            <property name="key">tile-ninth-top-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-middle-left">
+            <property name="title">Middle Left</property>
+            <property name="key">tile-ninth-middle-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-middle-center">
+            <property name="title">Middle Center</property>
+            <property name="key">tile-ninth-middle-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-middle-right">
+            <property name="title">Middle Right</property>
+            <property name="key">tile-ninth-middle-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-bottom-left">
+            <property name="title">Bottom Left</property>
+            <property name="key">tile-ninth-bottom-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-bottom-center">
+            <property name="title">Bottom Center</property>
+            <property name="key">tile-ninth-bottom-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-ninth-bottom-right">
+            <property name="title">Bottom Right</property>
+            <property name="key">tile-ninth-bottom-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="halves-group">
+        <property name="title">Halves</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-half-top">
+            <property name="title">Top</property>
+            <property name="key">tile-half-top</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-half-bottom">
+            <property name="title">Bottom</property>
+            <property name="key">tile-half-bottom</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-half-center-horizontal">
+            <property name="title">Center (Horizontal)</property>
+            <property name="key">tile-half-center-horizontal</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-half-center-vertical">
+            <property name="title">Center (Vertical)</property>
+            <property name="key">tile-half-center-vertical</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-half-left">
+            <property name="title">Left</property>
+            <property name="key">tile-half-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-half-right">
+            <property name="title">Right</property>
+            <property name="key">tile-half-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="thirds-group">
+        <property name="title">Thirds</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-third-first">
+            <property name="title">First</property>
+            <property name="key">tile-third-first</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-third-second">
+            <property name="title">Second</property>
+            <property name="key">tile-third-second</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-third-third">
+            <property name="title">Third</property>
+            <property name="key">tile-third-third</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-two-thirds-left">
+            <property name="title">Left Two Thirds</property>
+            <property name="key">tile-two-thirds-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-two-thirds-center">
+            <property name="title">Center Two Thirds</property>
+            <property name="key">tile-two-thirds-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-two-thirds-right">
+            <property name="title">Right Two Thirds</property>
+            <property name="key">tile-two-thirds-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="fourths-group">
+        <property name="title">Fourths</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-fourth-first">
+            <property name="title">First</property>
+            <property name="key">tile-fourth-first</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-fourth-second">
+            <property name="title">Second</property>
+            <property name="key">tile-fourth-second</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-fourth-third">
+            <property name="title">Third</property>
+            <property name="key">tile-fourth-third</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-fourth-fourth">
+            <property name="title">Fourth</property>
+            <property name="key">tile-fourth-fourth</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-three-fourths-left">
+            <property name="title">Left Three Fourth</property>
+            <property name="key">tile-three-fourths-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-three-fourths-right">
+            <property name="title">Right Three Fourth</property>
+            <property name="key">tile-three-fourths-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="move-group">
+        <property name="title">Move Tiled Window</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-center">
+            <property name="title">Center</property>
+            <property name="key">tile-center</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-left">
+            <property name="title">Left</property>
+            <property name="key">tile-move-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-right">
+            <property name="title">Right</property>
+            <property name="key">tile-move-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-top-left">
+            <property name="title">Top Left</property>
+            <property name="key">tile-move-top-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-top">
+            <property name="title">Top</property>
+            <property name="key">tile-move-top</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-top-right">
+            <property name="title">Top Right</property>
+            <property name="key">tile-move-top-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-bottom-left">
+            <property name="title">Bottom Left</property>
+            <property name="key">tile-move-bottom-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-bottom">
+            <property name="title">Bottom</property>
+            <property name="key">tile-move-bottom</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-bottom-right">
+            <property name="title">Bottom Right</property>
+            <property name="key">tile-move-bottom-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-to-monitor-left">
+            <property name="title">Move To Left Monitor</property>
+            <property name="key">tile-move-to-monitor-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-to-monitor-right">
+            <property name="title">Move To Right Monitor</property>
+            <property name="key">tile-move-to-monitor-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-to-monitor-top">
+            <property name="title">Move To Top Monitor</property>
+            <property name="key">tile-move-to-monitor-top</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-move-to-monitor-bottom">
+            <property name="title">Move To Bottom Monitor</property>
+            <property name="key">tile-move-to-monitor-bottom</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="stretch-group">
+        <property name="title">Stretch Window</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-left">
+            <property name="title">Left</property>
+            <property name="key">tile-stretch-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-right">
+            <property name="title">Right</property>
+            <property name="key">tile-stretch-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-top">
+            <property name="title">Top</property>
+            <property name="key">tile-stretch-top</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-bottom">
+            <property name="title">Bottom</property>
+            <property name="key">tile-stretch-bottom</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-left">
+            <property name="title">Step: Left</property>
+            <property name="key">tile-stretch-step-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-right">
+            <property name="title">Step: Right</property>
+            <property name="key">tile-stretch-step-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-top-left">
+            <property name="title">Step: Top Left</property>
+            <property name="key">tile-stretch-step-top-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-top">
+            <property name="title">Step: Top</property>
+            <property name="key">tile-stretch-step-top</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-top-right">
+            <property name="title">Step: Top Right</property>
+            <property name="key">tile-stretch-step-top-right</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-bottom-left">
+            <property name="title">Step: Bottom Left</property>
+            <property name="key">tile-stretch-step-bottom-left</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-bottom">
+            <property name="title">Step: Bottom</property>
+            <property name="key">tile-stretch-step-bottom</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-stretch-step-bottom-right">
+            <property name="title">Step: Bottom Right</property>
+            <property name="key">tile-stretch-step-bottom-right</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

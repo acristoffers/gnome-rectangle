@@ -3,18 +3,21 @@ DOMAIN=acristoffers.me
 
 .PHONY: all pack install clean
 
-all: dist/extension.js
+all: dist/extension.js dist/prefs.ui
 
 node_modules: package.json
 	npm install
 
-dist/extension.js dist/prefs.js: node_modules extension.ts prefs.ts
+dist/extension.js dist/prefs.js: node_modules src/extension.ts src/prefs.ts
 	tsc --build tsconfig.json
+
+dist/prefs.ui:
+	cp ui/prefs.ui dist/prefs.ui
 
 schemas/gschemas.compiled: schemas/org.gnome.shell.extensions.$(NAME).gschema.xml
 	glib-compile-schemas schemas
 
-$(NAME).zip: dist/extension.js dist/prefs.js schemas/gschemas.compiled
+$(NAME).zip: dist/extension.js dist/prefs.js dist/prefs.ui schemas/gschemas.compiled
 	@cp -r schemas dist/
 	@cp metadata.json dist/
 	@(cd dist && zip ../$(NAME).zip -9r .)

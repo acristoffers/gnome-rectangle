@@ -13,13 +13,13 @@ let
         sha512 = "1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==";
       };
     };
-    "@es-joy/jsdoccomment-0.41.0" = {
+    "@es-joy/jsdoccomment-0.42.0" = {
       name = "_at_es-joy_slash_jsdoccomment";
       packageName = "@es-joy/jsdoccomment";
-      version = "0.41.0";
+      version = "0.42.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@es-joy/jsdoccomment/-/jsdoccomment-0.41.0.tgz";
-        sha512 = "aKUhyn1QI5Ksbqcr3fFJj16p99QdjUxXAEuFst1Z47DRyoiMwivIH9MV/ARcJOCXVjPfjITciej8ZD2O/6qUmw==";
+        url = "https://registry.npmjs.org/@es-joy/jsdoccomment/-/jsdoccomment-0.42.0.tgz";
+        sha512 = "R1w57YlVA6+YE01wch3GPYn6bCsrOV3YW/5oGGE2tmX6JcL9Nr+b5IikrjMPF+v9CV3ay+obImEdsDhovhJrzw==";
       };
     };
     "@eslint-community/eslint-utils-4.4.0" = {
@@ -49,13 +49,13 @@ let
         sha512 = "269Z39MS6wVJtsoUl10L60WdkhJVdPG24Q4eZTH3nnF6lpvSShEK3wQjDX9JRWAUPvPh7COouPpU9IrqaZFvtQ==";
       };
     };
-    "@eslint/js-8.56.0" = {
+    "@eslint/js-8.57.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "8.56.0";
+      version = "8.57.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-8.56.0.tgz";
-        sha512 = "gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-8.57.0.tgz";
+        sha512 = "Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==";
       };
     };
     "@girs/accountsservice-1.0-1.0.0-3.2.7" = {
@@ -211,13 +211,13 @@ let
         sha512 = "88GNniBwxAsXrfA+T1wNUxoQk8HivDZUVq1KF3ZsomrQyRDcwCgQLcLyC6c5ZAkg6xwnHZmTIWoYgITiee/lLA==";
       };
     };
-    "@girs/gjs-3.2.7" = {
+    "@girs/gjs-3.2.9" = {
       name = "_at_girs_slash_gjs";
       packageName = "@girs/gjs";
-      version = "3.2.7";
+      version = "3.2.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@girs/gjs/-/gjs-3.2.7.tgz";
-        sha512 = "gaZLkffVm2e5zvyyGNcDgFgyL5WaHZWUr0XBLtuKEM17/qA4udZQRif7HkW//PG8T2AQpuOfSdRj7uJrItykNw==";
+        url = "https://registry.npmjs.org/@girs/gjs/-/gjs-3.2.9.tgz";
+        sha512 = "dJfCNdtt4OLRywlhKOc+h27l5KoOiDhbhkuuG/WaV/jn9KaQ1BMAyVWdBEZu6WzPJlsiWYujis0fe5ZJnrgoDA==";
       };
     };
     "@girs/gl-1.0-1.0.0-3.2.7" = {
@@ -229,13 +229,13 @@ let
         sha512 = "pYGo7+u0KCUG63am/zmwOAUosurCs/BxwVRsOAnOKnZppkjfTqssEdAz1YyetbPK/n8sbYjsSWae/yIJmYAgRw==";
       };
     };
-    "@girs/glib-2.0-2.78.0-3.2.7" = {
+    "@girs/glib-2.0-2.78.0-3.2.9" = {
       name = "_at_girs_slash_glib-2.0";
       packageName = "@girs/glib-2.0";
-      version = "2.78.0-3.2.7";
+      version = "2.78.0-3.2.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@girs/glib-2.0/-/glib-2.0-2.78.0-3.2.7.tgz";
-        sha512 = "h1zGUd58VnQn93Xws91E0mwio8weBWdqDn6sm5Q0xzPmhGGH8+9h/z9JGc7YKj32PnlWrPJ8r9lxeyvO57zT6A==";
+        url = "https://registry.npmjs.org/@girs/glib-2.0/-/glib-2.0-2.78.0-3.2.9.tgz";
+        sha512 = "wcbnSojav6jc4//PYsAJPwXizFlz35/F+AHyFbvutOSdNz4xzzUUZqUhhH2lmoyR8WDvkVWBcQitCmYmPNe6Xg==";
       };
     };
     "@girs/gmodule-2.0-2.0.0-3.2.7" = {
@@ -247,13 +247,13 @@ let
         sha512 = "7B+rAZ6grSYwSOz2p4h8hSKoK5QIuSVHEM7qGUTC6qpPiLvREcaBNGJSGgAMgxtRhyXPYVsUyLhMgUokrFUC+g==";
       };
     };
-    "@girs/gnome-shell-45.0.0-beta8" = {
+    "@girs/gnome-shell-45.0.0-beta9" = {
       name = "_at_girs_slash_gnome-shell";
       packageName = "@girs/gnome-shell";
-      version = "45.0.0-beta8";
+      version = "45.0.0-beta9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@girs/gnome-shell/-/gnome-shell-45.0.0-beta8.tgz";
-        sha512 = "p7HBvYBHFeuwjnnpth0tBPWg7jLtbmyosfAnfCN7vDav48aaBylVtJSFhlFnEosZXGi9J1i2XT5A1v7bKlboww==";
+        url = "https://registry.npmjs.org/@girs/gnome-shell/-/gnome-shell-45.0.0-beta9.tgz";
+        sha512 = "MPl+4VFvoOiMma91PZkOujMkcosLBMZhxiLpSQXjUCG90iBtAKJAYUA8gI9cVLDjtv4aIPkKern5SIElsX5++g==";
       };
     };
     "@girs/gnomebg-4.0-4.0.0-3.2.7" = {
@@ -283,13 +283,13 @@ let
         sha512 = "NkfWGGFk3OUgAdaHByfXrtiM23YRUI6ab9JOAcMtgN2CdCNj3jxcQl47IjazvucjQZXA2ZJU+EOCcdxI5aS0Hw==";
       };
     };
-    "@girs/gobject-2.0-2.78.0-3.2.7" = {
+    "@girs/gobject-2.0-2.78.0-3.2.9" = {
       name = "_at_girs_slash_gobject-2.0";
       packageName = "@girs/gobject-2.0";
-      version = "2.78.0-3.2.7";
+      version = "2.78.0-3.2.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@girs/gobject-2.0/-/gobject-2.0-2.78.0-3.2.7.tgz";
-        sha512 = "BSYxXv4NHZS7ANo0up8N9Dfl3FysIxqsUXmHAMmVkUNdNPfaRyiXnSBiFYzkFdkHQFDoQhM5+RsXz4R94ZLlsw==";
+        url = "https://registry.npmjs.org/@girs/gobject-2.0/-/gobject-2.0-2.78.0-3.2.9.tgz";
+        sha512 = "zszoqx7/z7KseQnc7WUXz1jgs3oYskT748cMKLQ7n4pRtL6klrTzlPbM42Szs+Uk6wOKJ+o+MMdcpb8znflDBg==";
       };
     };
     "@girs/graphene-1.0-1.0.0-3.2.7" = {
@@ -715,22 +715,22 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
-    "eslint-8.56.0" = {
+    "eslint-8.57.0" = {
       name = "eslint";
       packageName = "eslint";
-      version = "8.56.0";
+      version = "8.57.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-8.56.0.tgz";
-        sha512 = "Go19xM6T9puCOWntie1/P997aXxFsOi37JIHRWI514Hc6ZnaHGKY9xFhrU65RT6CcBEzZoGG1e6Nq+DT04ZtZQ==";
+        url = "https://registry.npmjs.org/eslint/-/eslint-8.57.0.tgz";
+        sha512 = "dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==";
       };
     };
-    "eslint-plugin-jsdoc-48.0.4" = {
+    "eslint-plugin-jsdoc-48.2.1" = {
       name = "eslint-plugin-jsdoc";
       packageName = "eslint-plugin-jsdoc";
-      version = "48.0.4";
+      version = "48.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-48.0.4.tgz";
-        sha512 = "A0cH+5svWPXzGZszBjXA1t0aAqVGS+/x3i02KFmb73rU0iMLnadEcVWcD/dGBZHIfAMKr3YpWh58f6wn4N909w==";
+        url = "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-48.2.1.tgz";
+        sha512 = "iUvbcyDZSO/9xSuRv2HQBw++8VkV/pt3UWtX9cpPH0l7GKPq78QC/6+PmyQHHvNZaTjAce6QVciEbnc6J/zH5g==";
       };
     };
     "eslint-scope-7.2.2" = {
@@ -1264,13 +1264,13 @@ let
         sha512 = "5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==";
       };
     };
-    "semver-7.5.4" = {
+    "semver-7.6.0" = {
       name = "semver";
       packageName = "semver";
-      version = "7.5.4";
+      version = "7.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz";
-        sha512 = "1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.6.0.tgz";
+        sha512 = "EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==";
       };
     };
     "shebang-command-2.0.0" = {
@@ -1372,13 +1372,13 @@ let
         sha512 = "Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==";
       };
     };
-    "typescript-5.3.3" = {
+    "typescript-5.4.2" = {
       name = "typescript";
       packageName = "typescript";
-      version = "5.3.3";
+      version = "5.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz";
-        sha512 = "pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-5.4.2.tgz";
+        sha512 = "+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==";
       };
     };
     "uri-js-4.4.1" = {
@@ -1434,11 +1434,11 @@ let
     src = ./..;
     dependencies = [
       sources."@aashutoshrathi/word-wrap-1.2.6"
-      sources."@es-joy/jsdoccomment-0.41.0"
+      sources."@es-joy/jsdoccomment-0.42.0"
       sources."@eslint-community/eslint-utils-4.4.0"
       sources."@eslint-community/regexpp-4.10.0"
       sources."@eslint/eslintrc-2.1.4"
-      sources."@eslint/js-8.56.0"
+      sources."@eslint/js-8.57.0"
       sources."@girs/accountsservice-1.0-1.0.0-3.2.7"
       sources."@girs/adw-1-1.4.2-3.2.7"
       sources."@girs/atk-1.0-2.50.0-3.2.7"
@@ -1456,15 +1456,15 @@ let
       sources."@girs/gdkpixbuf-2.0-2.0.0-3.2.7"
       sources."@girs/gdm-1.0-1.0.0-3.2.7"
       sources."@girs/gio-2.0-2.78.0-3.2.7"
-      sources."@girs/gjs-3.2.7"
+      sources."@girs/gjs-3.2.9"
       sources."@girs/gl-1.0-1.0.0-3.2.7"
-      sources."@girs/glib-2.0-2.78.0-3.2.7"
+      sources."@girs/glib-2.0-2.78.0-3.2.9"
       sources."@girs/gmodule-2.0-2.0.0-3.2.7"
-      sources."@girs/gnome-shell-45.0.0-beta8"
+      sources."@girs/gnome-shell-45.0.0-beta9"
       sources."@girs/gnomebg-4.0-4.0.0-3.2.7"
       sources."@girs/gnomebluetooth-3.0-3.0.0-3.2.7"
       sources."@girs/gnomedesktop-4.0-4.0.0-3.2.7"
-      sources."@girs/gobject-2.0-2.78.0-3.2.7"
+      sources."@girs/gobject-2.0-2.78.0-3.2.9"
       sources."@girs/graphene-1.0-1.0.0-3.2.7"
       sources."@girs/gsk-4.0-4.0.0-3.2.7"
       sources."@girs/gtk-4.0-4.12.4-3.2.7"
@@ -1512,8 +1512,8 @@ let
       sources."deep-is-0.1.4"
       sources."doctrine-3.0.0"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-8.56.0"
-      sources."eslint-plugin-jsdoc-48.0.4"
+      sources."eslint-8.57.0"
+      sources."eslint-plugin-jsdoc-48.2.1"
       sources."eslint-scope-7.2.2"
       sources."eslint-visitor-keys-3.4.3"
       sources."espree-9.6.1"
@@ -1573,7 +1573,7 @@ let
       sources."reusify-1.0.4"
       sources."rimraf-3.0.2"
       sources."run-parallel-1.2.0"
-      sources."semver-7.5.4"
+      sources."semver-7.6.0"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       sources."spdx-exceptions-2.4.0"
@@ -1585,7 +1585,7 @@ let
       sources."text-table-0.2.0"
       sources."type-check-0.4.0"
       sources."type-fest-0.20.2"
-      sources."typescript-5.3.3"
+      sources."typescript-5.4.2"
       sources."uri-js-4.4.1"
       sources."which-2.0.2"
       sources."wrappy-1.0.2"

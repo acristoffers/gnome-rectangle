@@ -67,7 +67,7 @@ export default class GnomeRectangle extends Extension {
   }
 
   focusedWindow() {
-    return global.display.focus_window;
+    return global.display.focusWindow;
   }
 
   windowActor(app: Meta.Window) {
@@ -247,7 +247,7 @@ export default class GnomeRectangle extends Extension {
 
     if (app.fullscreen)
       app.unmake_fullscreen();
-    if (app.maximized_horizontally || app.maximized_vertically)
+    if (app.maximizedHorizontally || app.maximizedVertically)
       app.unmaximize(Meta.MaximizeFlags.BOTH);
 
     const animate = this.gsettings?.get_boolean('animate-movement') ?? true;

@@ -174,7 +174,7 @@ class ShortcutSettingWidget extends Adw.ActionRow {
         this._settings = settings;
 
         this._shortLabel = new Gtk.ShortcutLabel({
-            disabled_text: _('New accelerator…'),
+            disabledText: _('New accelerator…'),
             valign: Gtk.Align.CENTER,
             hexpand: false,
             vexpand: false
@@ -216,15 +216,15 @@ class ShortcutSettingWidget extends Adw.ActionRow {
         let content = new Adw.StatusPage({
             title: _('New accelerator…'),
             description: this.subtitle,
-            icon_name: 'preferences-desktop-keyboard-shortcuts-symbolic'
+            iconName: 'preferences-desktop-keyboard-shortcuts-symbolic'
         });
 
         this._editor = new Adw.Window({
             modal: true,
-            hide_on_close: true,
-            transient_for: widget.get_root(),
-            width_request: 480,
-            height_request: 320,
+            hideOnClose: true,
+            transientFor: widget.get_root(),
+            widthRequest: 480,
+            heightRequest: 320,
             content
         });
 

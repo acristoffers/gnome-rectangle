@@ -17,11 +17,11 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-plugin-jsdoc": "^48.2.1",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   },
   "dependencies": {
-    "@girs/gjs": "^3.2.9",
-    "@girs/gnome-shell": "^45.0.0-beta9"
+    "@girs/gjs": "^3.3.0",
+    "@girs/gnome-shell": "^46.0.0-beta1"
   },
   "sideEffects": false
 }

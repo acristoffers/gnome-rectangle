@@ -1,0 +1,19 @@
+.custom-menu-content {
+  padding: 8px;
+  spacing: 16px;
+}
+
+.group-box {
+  margin-bottom: 8px;
+  spacing: 8px;
+}
+
+.group-button {
+  width: 24px;
+  height: 24px;
+}
+
+.group-button:hover {
+  background-color: #666666;
+  transform: scale(1.1);
+}

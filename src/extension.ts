@@ -49,7 +49,7 @@ export default class GnomeRectangle extends Extension {
   keyManager?: ShortcutsManager
   gsettings?: Gio.Settings
   shortcuts = new Map<string, number>()
-  menu = new PanelMenu.Button(0, "Rectangle", false)
+  menu?: PanelMenu.Button
 
   enable() {
     this.animationState = new AnimationState();
@@ -57,6 +57,7 @@ export default class GnomeRectangle extends Extension {
     this.gsettings = this.getSettings();
     this.gsettings.connect('changed', this.settingsChanged.bind(this));
     this.registerShortcuts();
+    this.menu = new PanelMenu.Button(0, "Rectangle", false)
     this.setupMenu();
     Main.panel.addToStatusArea("Rectangle", this.menu, 1);
   }
@@ -71,6 +72,8 @@ export default class GnomeRectangle extends Extension {
       GLib.Source.remove(this.animationState.id);
     }
     this.animationState = undefined;
+    this.menu?.destroy();
+    this.menu = undefined;
   }
 
   focusedWindow() {
@@ -396,13 +399,17 @@ export default class GnomeRectangle extends Extension {
   };
 
   setupMenu() {
-    const menu = this.menu.menu;
+    if (this.menu?.menu == null) {
+      return;
+    }
+
+    const menu = this.menu.menu as PopupMenu.PopupMenu;
 
     // Set up the icon that appears the in top bar
     const icon = this.#menuIcon("rectangle");
     const hbox = new St.BoxLayout({});
     hbox.add_child(icon);
-    this.menu.add_child(hbox);
+    this.menu?.add_child(hbox);
 
     // Create the main menu item
     let menuBase = new PopupMenu.PopupBaseMenuItem({ reactive: false });
@@ -611,7 +618,7 @@ export default class GnomeRectangle extends Extension {
     column3.add_child(stretchStepGrid);
 
     menuBase.add_child(contentBox);
-    menu.addMenuItem(menuBase);
+    menu?.addMenuItem(menuBase);
 
     const settingsIcon = new St.Icon({
       iconName: 'preferences-system-symbolic',
@@ -621,7 +628,7 @@ export default class GnomeRectangle extends Extension {
     let settingsButton = new PopupMenu.PopupMenuItem("Settings");
     settingsButton.insert_child_at_index(settingsIcon, 0);
     settingsButton.connect('activate', () => { this.openPreferences() });
-    menu.addMenuItem(settingsButton);
+    menu?.addMenuItem(settingsButton);
   }
 
   #menuIcon(name: string) {

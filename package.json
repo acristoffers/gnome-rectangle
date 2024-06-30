@@ -15,13 +15,12 @@
   },
   "homepage": "https://github.com/acristoffers/gnome-rectangle#readme",
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-plugin-jsdoc": "^48.2.1",
-    "typescript": "^5.4.3"
+    "eslint": "^9.6.0",
+    "eslint-plugin-jsdoc": "^48.5.0",
+    "typescript": "^5.5.2"
   },
   "dependencies": {
-    "@girs/gjs": "^3.3.0",
-    "@girs/gnome-shell": "^46.0.0-beta1"
+    "@girs/gnome-shell": "^46.0.0-beta8"
   },
   "sideEffects": false
 }

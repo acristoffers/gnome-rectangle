@@ -19,7 +19,7 @@
       y="0"
       ry="0" />
     <rect
-      style="fill:#FFFFFF;stroke:#FFFFFF;stroke-width:1;stroke-miterlimit:1"
+      style="fill:#FFFFFF;stroke:#FFFFFF;stroke-width:8;stroke-miterlimit:1"
       id="window"
       width="314"
       height="74"
@@ -27,7 +27,7 @@
       y="106"
       ry="8" />
     <rect
-      style="fill:#999999;stroke:#FFFFFF;stroke-width:1;stroke-miterlimit:1"
+      style="fill:#999999;stroke:#FFFFFF;stroke-width:8;stroke-miterlimit:1"
       id="window-phantom"
       width="149"
       height="74"

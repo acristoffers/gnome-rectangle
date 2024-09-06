@@ -1,10 +1,10 @@
 # Rectangle
 
-A Gnome extension to mimic macOS's [Rectangle](https://rectangleapp.com/) tiling.
+A Gnome extension to mimic macOS's [Rectangle](https://rectangleapp.com/) snapping.
 
 [<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" alt="Get it on GNOME Extensions" height="100" align="middle">][ego]
 
-It allows manual tiling with the following shortcuts (configurable in GNOME 45):
+It allows snapping with the following shortcuts (configurable in GNOME 45):
 
 - Quarter: Top Left: `Super+Ctrl+U`
 - Quarter: Top Right: `Super+Ctrl+I`

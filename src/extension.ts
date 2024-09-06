@@ -114,7 +114,6 @@ export default class GnomeRectangle extends Extension {
     if (index >= rows * cols || index < 0)
       return { x: geo.x, y: geo.y, width: geo.width, height: geo.height };
 
-
     const screen = this.screenSize();
     const pad = this.paddings();
 
@@ -148,7 +147,7 @@ export default class GnomeRectangle extends Extension {
     };
   }
 
-  /* 
+  /*
    * - rs and cs are row and col span, how many cells in the grid will be
    * taken by the window.
    * - r and c are the size of the grid.
@@ -301,7 +300,7 @@ export default class GnomeRectangle extends Extension {
     }
 
     const [shortcut] = this.gsettings?.get_strv(key) ?? [''];
-    if (shortcut.length != 0) {
+    if (shortcut != null && shortcut.length != 0) {
       action = this.keyManager?.add(shortcut, () => this.manage(i, rs, cs, r, c));
       if (action != null && action > 0) {
         this.shortcuts.set(key, action);

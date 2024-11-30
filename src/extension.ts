@@ -248,6 +248,22 @@ export default class GnomeRectangle extends Extension {
         }
       }
       return
+    } else if (index === -9) {
+      const step = this.gsettings?.get_int('shrink-step') ?? 30;
+      geometry = {
+        width: geometry.width - step,
+        height: geometry.height - step,
+        x: geometry.x + step / 2.0,
+        y: geometry.y + step / 2.0,
+      }
+    } else if (index === -10) {
+      const step = this.gsettings?.get_int('shrink-step') ?? 30;
+      geometry = {
+        width: geometry.width + step,
+        height: geometry.height + step,
+        x: geometry.x - step / 2.0,
+        y: geometry.y - step / 2.0,
+      }
     }
 
     if (index >= 0) {
@@ -395,6 +411,8 @@ export default class GnomeRectangle extends Extension {
     'tile-move-to-monitor-bottom': [-8, Meta.DisplayDirection.DOWN, 0, 0, 0],
     'tile-move-to-monitor-left': [-8, Meta.DisplayDirection.LEFT, 0, 0, 0],
     'tile-move-to-monitor-right': [-8, Meta.DisplayDirection.RIGHT, 0, 0, 0],
+    'tile-shrink': [-9, 0, 0, 0, 0],
+    'tile-expand': [-10, 0, 0, 0, 0],
   };
 
   setupMenu() {

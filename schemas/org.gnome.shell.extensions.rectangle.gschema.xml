@@ -41,6 +41,11 @@
       <summary>Left margin</summary>
       <description>Left margin between window and desktop</description>
     </key>
+    <key name="shrink-step" type="i">
+      <default>30</default>
+      <summary>Amount to shrink/expand by</summary>
+      <description>The amount to grow/shrink the window</description>
+    </key>
 
     <key type="as" name="tile-quarter-top-left">
       <default><![CDATA[['<Control><Super>U']]]></default>
@@ -376,6 +381,16 @@
       <default><![CDATA[['<Control><Super><Shift>Right']]]></default>
       <summary>Move To Monitor: Right</summary>
       <description>Move To Monitor: Right</description>
+    </key>
+    <key type="as" name="tile-shrink">
+      <default><![CDATA[['<Super>minus']]]></default>
+      <summary>Shrink window</summary>
+      <description>Shrinks the window by a fixed amount</description>
+    </key>
+    <key type="as" name="tile-expand">
+      <default><![CDATA[['<Super>equal']]]></default>
+      <summary>Expand window</summary>
+      <description>Expands the window by a fixed amount</description>
     </key>
 
   </schema>

@@ -126,6 +126,26 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="shrink-step-group">
+        <property name="title" translatable="yes">Shrink/Expand</property>
+        <property name="description" translatable="yes">Finer control of the shrink/expand amount</property>
+        <child>
+          <object class="AdwSpinRow" id="shrink-step">
+            <property name="title" translatable="yes">Step</property>
+            <property name="subtitle" translatable="yes">Step for shrinking/expanding</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1000</property>
+                <property name="page-increment">10</property>
+                <property name="step-increment">1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
   <object class="AdwPreferencesPage" id="shortcuts-page">
     <property name="title" translatable="yes">Shortcuts</property>
@@ -673,6 +693,25 @@
           <object class="ShortcutSettingWidget" id="tile-stretch-step-bottom-right">
             <property name="title">Step: Bottom Right</property>
             <property name="key">tile-stretch-step-bottom-right</property>
+            <property name="activatable">true</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="shrink-group">
+        <property name="title">Shrink/Expand Window</property>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-shrink">
+            <property name="title">Shrink</property>
+            <property name="key">tile-shrink</property>
+            <property name="activatable">true</property>
+          </object>
+        </child>
+        <child>
+          <object class="ShortcutSettingWidget" id="tile-expand">
+            <property name="title">Expand</property>
+            <property name="key">tile-expand</property>
             <property name="activatable">true</property>
           </object>
         </child>

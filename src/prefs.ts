@@ -6,7 +6,7 @@ import Gtk from 'gi://Gtk';
 import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 export default class GnomeRectanglePreferences extends ExtensionPreferences {
-    fillPreferencesWindow(window: Adw.PreferencesWindow) {
+    fillPreferencesWindow(window: Adw.PreferencesWindow) : Promise<void> {
         const builder = Gtk.Builder.new_from_file(this.path + "/prefs.ui");
 
         const generalPage = builder.get_object("general-page") as Adw.PreferencesPage;
@@ -19,6 +19,8 @@ export default class GnomeRectanglePreferences extends ExtensionPreferences {
 
         this.generalPage(builder, settings);
         this.shortcutsPage(builder, settings);
+
+        return Promise.resolve();
     }
 
     generalPage(builder: Gtk.Builder, settings: Gio.Settings) {

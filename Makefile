@@ -23,6 +23,7 @@ schemas/gschemas.compiled: schemas/org.gnome.shell.extensions.$(NAME).gschema.xm
 	glib-compile-schemas schemas
 
 $(NAME).zip: dist/extension.js dist/prefs.js dist/prefs.ui schemas/gschemas.compiled dist/icons
+	@rm dist/tsconfig.tsbuildinfo
 	@cp -r schemas dist/
 	@cp metadata.json dist/
 	@cp src/stylesheet.css dist/
@@ -37,4 +38,3 @@ install: $(NAME).zip
 
 clean:
 	@rm -rf dist node_modules $(NAME).zip
-

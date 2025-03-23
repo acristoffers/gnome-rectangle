@@ -18,10 +18,10 @@
         node2nixOutput = import ./nix { inherit pkgs nodejs system; };
         nodeDeps = node2nixOutput.nodeDependencies;
         buildDependencies = with pkgs; [
-          busybox
           glib
           nodejs
           typescript
+          unzip
           zip
         ];
       in

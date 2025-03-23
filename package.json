@@ -20,7 +20,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@girs/gnome-shell": "^47.0.0"
+    "@girs/gnome-shell": "^48.0.0"
   },
   "sideEffects": false
 }

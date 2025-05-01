@@ -46,6 +46,11 @@
       <summary>Amount to shrink/expand by</summary>
       <description>The amount to grow/shrink the window</description>
     </key>
+    <key name="show-icon" type="b">
+      <default>true</default>
+      <summary>Extension Icon</summary>
+      <description>Whether to show the icon in the top bar</description>
+    </key>
 
     <key type="as" name="tile-quarter-top-left">
       <default><![CDATA[['<Control><Super>U']]]></default>

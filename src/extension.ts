@@ -57,9 +57,11 @@ export default class GnomeRectangle extends Extension {
     this.gsettings = this.getSettings();
     this.gsettings.connect('changed', this.settingsChanged.bind(this));
     this.registerShortcuts();
-    this.menu = new PanelMenu.Button(0, "Rectangle", false)
-    this.setupMenu();
-    Main.panel.addToStatusArea("Rectangle", this.menu, 1);
+    if (this.gsettings?.get_boolean('show-icon') ?? true) {
+      this.menu = new PanelMenu.Button(0, "Rectangle", false);
+      this.setupMenu();
+      Main.panel.addToStatusArea("Rectangle", this.menu, 1);
+    }
   }
 
   disable() {
@@ -324,7 +326,20 @@ export default class GnomeRectangle extends Extension {
     }
   }
 
-  settingsChanged(_settings: Gio.Settings, key: string) {
+  settingsChanged(settings: Gio.Settings, key: string) {
+    if (key == "show-icon") {
+      const showIcon = settings.get_boolean('show-icon') ?? true;
+      const menuVisible = this.menu != null;
+      if (showIcon && !menuVisible) {
+        this.menu = new PanelMenu.Button(0, "Rectangle", false);
+        this.setupMenu();
+        Main.panel.addToStatusArea("Rectangle", this.menu, 1);
+      } else if (!showIcon && menuVisible) {
+        this.menu?.destroy();
+        this.menu = undefined;
+      }
+      return;
+    }
     let action = this.shortcuts.get(key);
     if (action != null) {
       this.keyManager?.remove(action);

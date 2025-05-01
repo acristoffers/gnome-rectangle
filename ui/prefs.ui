@@ -146,6 +146,17 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class="AdwPreferencesGroup" id="show-icon-group">
+        <property name="title">Show Icon</property>
+        <child>
+          <object class="AdwSwitchRow" id="show-icon">
+            <property name="title" translatable="yes">Enable</property>
+            <property name="subtitle" translatable="yes">Wether to show the icon in the panel</property>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
   <object class="AdwPreferencesPage" id="shortcuts-page">
     <property name="title" translatable="yes">Shortcuts</property>

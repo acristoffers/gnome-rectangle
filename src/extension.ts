@@ -98,17 +98,17 @@ export default class GnomeRectangle extends Extension {
 
   paddings(): Paddings {
     return {
-      inner: this.gsettings?.get_value('padding-inner').deepUnpack() ?? 8,
-      outer: this.gsettings?.get_value('padding-outer').deepUnpack() ?? 8,
+      inner: this.gsettings?.get_int('padding-inner') ?? 8,
+      outer: this.gsettings?.get_int('padding-outer') ?? 8,
     };
   }
 
   margins(): Margins {
     return {
-      bottom: this.gsettings?.get_value('margin-bottom').deepUnpack() ?? 0,
-      left: this.gsettings?.get_value('margin-left').deepUnpack() ?? 0,
-      right: this.gsettings?.get_value('margin-right').deepUnpack() ?? 0,
-      top: this.gsettings?.get_value('margin-top').deepUnpack() ?? 0,
+      bottom: this.gsettings?.get_int('margin-bottom') ?? 0,
+      left: this.gsettings?.get_int('margin-left') ?? 0,
+      right: this.gsettings?.get_int('margin-right') ?? 0,
+      top: this.gsettings?.get_int('margin-top') ?? 0,
     };
   }
 
@@ -275,7 +275,7 @@ export default class GnomeRectangle extends Extension {
     if (app.fullscreen)
       app.unmake_fullscreen();
     if (app.maximizedHorizontally || app.maximizedVertically)
-      app.unmaximize(Meta.MaximizeFlags.BOTH);
+      app.unmaximize();
 
     const animate = this.gsettings?.get_boolean('animate-movement') ?? true;
     const duration = this.gsettings?.get_int('animation-duration') ?? 150;

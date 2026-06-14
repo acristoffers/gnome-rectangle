@@ -19,10 +19,7 @@ dist/icons:
 	@cp -r res/placement-icons/* dist/icons/
 	@cp res/*.svg dist/icons
 
-schemas/gschemas.compiled: schemas/org.gnome.shell.extensions.$(NAME).gschema.xml
-	glib-compile-schemas schemas
-
-$(NAME).zip: dist/extension.js dist/prefs.js dist/prefs.ui schemas/gschemas.compiled dist/icons
+$(NAME).zip: dist/extension.js dist/prefs.js dist/prefs.ui dist/icons
 	@rm dist/tsconfig.tsbuildinfo
 	@cp -r schemas dist/
 	@cp metadata.json dist/

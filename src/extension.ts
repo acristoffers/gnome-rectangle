@@ -55,7 +55,7 @@ export default class GnomeRectangle extends Extension {
     this.animationState = new AnimationState();
     this.keyManager = new ShortcutsManager();
     this.gsettings = this.getSettings();
-    this.gsettings.connect('changed', this.settingsChanged.bind(this));
+    this.gsettings.connectObject('changed', this.settingsChanged.bind(this));
     this.registerShortcuts();
     if (this.gsettings?.get_boolean('show-icon') ?? true) {
       this.menu = new PanelMenu.Button(0, "Rectangle", false);
@@ -69,8 +69,9 @@ export default class GnomeRectangle extends Extension {
     this.keyManager?.removeAll();
     this.keyManager?.destroy();
     this.keyManager = undefined;
+    this.gsettings?.disconnectObject(this.gsettings);
     this.gsettings = undefined;
-    if (this.animationState?.id !== undefined) {
+    if (this.animationState?.id != null) {
       GLib.Source.remove(this.animationState.id);
     }
     this.animationState = undefined;
@@ -688,7 +689,7 @@ export default class GnomeRectangle extends Extension {
     });
     let settingsButton = new PopupMenu.PopupMenuItem("Settings");
     settingsButton.insert_child_at_index(settingsIcon, 0);
-    settingsButton.connect('activate', () => { this.openPreferences() });
+    settingsButton.connectObject('activate', () => { this.openPreferences() });
     menu?.addMenuItem(settingsButton);
   }
 
@@ -705,7 +706,7 @@ export default class GnomeRectangle extends Extension {
       child: this.#menuIcon(tile),
       styleClass: 'group-button',
     });
-    button.connect("clicked", () => this.manage(i, rs, cs, r, c, Date.now()));
+    button.connectObject("clicked", () => this.manage(i, rs, cs, r, c, Date.now()));
     return button;
   }
 }

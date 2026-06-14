@@ -5,10 +5,11 @@
     "outDir": "./dist",
     "pretty": true,
     "sourceMap": false,
+    "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022",
+    "target": "ES2024",
     "lib": [
-      "ES2022"
+      "ES2024"
     ],
   },
   "include": [

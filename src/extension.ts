@@ -10,46 +10,46 @@ import Clutter from 'gi://Clutter';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 class Geometry {
-  x: number = 0
-  y: number = 0
-  width: number = 0
-  height: number = 0
+  x: number = 0;
+  y: number = 0;
+  width: number = 0;
+  height: number = 0;
 }
 
 class Paddings {
-  inner: number = 0
-  outer: number = 0
+  inner: number = 0;
+  outer: number = 0;
 }
 
 class Margins {
-  bottom: number = 0
-  left: number = 0
-  right: number = 0
-  top: number = 0
+  bottom: number = 0;
+  left: number = 0;
+  right: number = 0;
+  top: number = 0;
 }
 
 class AnimationState {
-  id?: number
-  start: Geometry = new Geometry()
-  end: Geometry = new Geometry()
-  time: number = 0
+  id?: number;
+  start: Geometry = new Geometry();
+  end: Geometry = new Geometry();
+  time: number = 0;
 }
 
 class Binding {
-  name: string = ""
-  callback: Function = function() { }
+  name: string = '';
+  callback: Function = function () {};
 }
 
 class Window extends Meta.Window {
-  rectangleArgs?: [number, number, number, number, number, number]
+  rectangleArgs?: [number, number, number, number, number, number];
 }
 
 export default class GnomeRectangle extends Extension {
-  animationState?: AnimationState
-  keyManager?: ShortcutsManager
-  gsettings?: Gio.Settings
-  shortcuts = new Map<string, number>()
-  menu?: PanelMenu.Button
+  animationState?: AnimationState;
+  keyManager?: ShortcutsManager;
+  gsettings?: Gio.Settings;
+  shortcuts = new Map<string, number>();
+  menu?: PanelMenu.Button;
 
   enable() {
     this.animationState = new AnimationState();
@@ -58,9 +58,9 @@ export default class GnomeRectangle extends Extension {
     this.gsettings.connectObject('changed', this.settingsChanged.bind(this));
     this.registerShortcuts();
     if (this.gsettings?.get_boolean('show-icon') ?? true) {
-      this.menu = new PanelMenu.Button(0, "Rectangle", false);
+      this.menu = new PanelMenu.Button(0, 'Rectangle', false);
       this.setupMenu();
-      Main.panel.addToStatusArea("Rectangle", this.menu, 1);
+      Main.panel.addToStatusArea('Rectangle', this.menu, 1);
     }
   }
 
@@ -113,7 +113,14 @@ export default class GnomeRectangle extends Extension {
     };
   }
 
-  geometryForGrid(geo: Geometry, index: number, rowSpan: number, colSpan: number, rows: number, cols: number) {
+  geometryForGrid(
+    geo: Geometry,
+    index: number,
+    rowSpan: number,
+    colSpan: number,
+    rows: number,
+    cols: number
+  ) {
     if (index >= rows * cols || index < 0)
       return { x: geo.x, y: geo.y, width: geo.width, height: geo.height };
 
@@ -243,15 +250,15 @@ export default class GnomeRectangle extends Extension {
       geometry = this.geometryForGrid(win, idx, prs, pcs, pr, pc);
       app.rectangleArgs = [idx, prs, pcs, pr, pc, now];
     } else if (index === -8) {
-      const currentMonitor = app.get_monitor()
-      const targetMonitor = global.display.get_monitor_neighbor_index(currentMonitor, rs)
+      const currentMonitor = app.get_monitor();
+      const targetMonitor = global.display.get_monitor_neighbor_index(currentMonitor, rs);
       if (targetMonitor >= 0) {
-        app.move_to_monitor(targetMonitor)
+        app.move_to_monitor(targetMonitor);
         if (app.rectangleArgs != null) {
-          this.manage(...app.rectangleArgs)
+          this.manage(...app.rectangleArgs);
         }
       }
-      return
+      return;
     } else if (index === -9) {
       const step = this.gsettings?.get_int('shrink-step') ?? 30;
       geometry = {
@@ -259,7 +266,7 @@ export default class GnomeRectangle extends Extension {
         height: geometry.height - step,
         x: geometry.x + step / 2.0,
         y: geometry.y + step / 2.0,
-      }
+      };
     } else if (index === -10) {
       const step = this.gsettings?.get_int('shrink-step') ?? 30;
       geometry = {
@@ -267,31 +274,37 @@ export default class GnomeRectangle extends Extension {
         height: geometry.height + step,
         x: geometry.x - step / 2.0,
         y: geometry.y - step / 2.0,
-      }
+      };
     } else if (index === -11) {
       const gs: [number, number, number, number, number][] =
-        rs == 0 ? [ // left
-          [0, 1, 1, 1, 2],
-          [0, 1, 2, 1, 3],
-          [0, 1, 3, 1, 4],
-          [0, 1, 1, 1, 4],
-          [0, 1, 1, 1, 3],
-        ] : [ // right
-          [1, 1, 1, 1, 2],
-          [1, 1, 2, 1, 3],
-          [1, 1, 3, 1, 4],
-          [3, 1, 1, 1, 4],
-          [2, 1, 1, 1, 3],
-        ];
+        rs == 0
+          ? [
+              // left
+              [0, 1, 1, 1, 2],
+              [0, 1, 2, 1, 3],
+              [0, 1, 3, 1, 4],
+              [0, 1, 1, 1, 4],
+              [0, 1, 1, 1, 3],
+            ]
+          : [
+              // right
+              [1, 1, 1, 1, 2],
+              [1, 1, 2, 1, 3],
+              [1, 1, 3, 1, 4],
+              [3, 1, 1, 1, 4],
+              [2, 1, 1, 1, 3],
+            ];
       const rectangleArgs = app.rectangleArgs ?? [...gs[0], 0];
       let i = 0;
       if (Math.abs(now - rectangleArgs[5]) < 1000) {
-        i = gs.findIndex(g =>
-          g[0] == rectangleArgs[0]
-          && g[1] == rectangleArgs[1]
-          && g[2] == rectangleArgs[2]
-          && g[3] == rectangleArgs[3]
-          && g[4] == rectangleArgs[4]);
+        i = gs.findIndex(
+          g =>
+            g[0] == rectangleArgs[0] &&
+            g[1] == rectangleArgs[1] &&
+            g[2] == rectangleArgs[2] &&
+            g[3] == rectangleArgs[3] &&
+            g[4] == rectangleArgs[4]
+        );
         i = (i + 1) % 5;
       }
       geometry = this.geometryForGrid(win, ...gs[i]);
@@ -302,10 +315,12 @@ export default class GnomeRectangle extends Extension {
       app.rectangleArgs = [index, rs, cs, r, c, now];
     }
 
-    if (app.fullscreen)
-      app.unmake_fullscreen();
-    if (app.maximizedHorizontally || app.maximizedVertically)
-      app.unmaximize();
+    if (app.fullscreen) app.unmake_fullscreen();
+    if (app.maximizedHorizontally || app.maximizedVertically) {
+      if ('set_unmaximize_flags' in app)
+        app.unmaximize(); // GNOME 49+
+      else (app as any).unmaximize(Meta.MaximizeFlags.BOTH); // GNOME 45-48
+    }
 
     const animate = this.gsettings?.get_boolean('animate-movement') ?? true;
     const duration = this.gsettings?.get_int('animation-duration') ?? 150;
@@ -323,8 +338,7 @@ export default class GnomeRectangle extends Extension {
         this.animationState!.time += 10;
         const state = this.animationState!;
         let a = state.time / duration;
-        if (a > 1)
-          a = 1;
+        if (a > 1) a = 1;
         const x = a * state.end.x + (1 - a) * state.start.x;
         const y = a * state.end.y + (1 - a) * state.start.y;
         const width = a * state.end.width + (1 - a) * state.start.width;
@@ -333,7 +347,6 @@ export default class GnomeRectangle extends Extension {
         app.move_resize_frame(true, x, y, width, height);
         return a !== 1;
       });
-
     } else {
       app.move_frame(true, geometry.x, geometry.y);
       app.move_resize_frame(true, geometry.x, geometry.y, geometry.width, geometry.height);
@@ -357,13 +370,13 @@ export default class GnomeRectangle extends Extension {
   }
 
   settingsChanged(settings: Gio.Settings, key: string) {
-    if (key == "show-icon") {
+    if (key == 'show-icon') {
       const showIcon = settings.get_boolean('show-icon') ?? true;
       const menuVisible = this.menu != null;
       if (showIcon && !menuVisible) {
-        this.menu = new PanelMenu.Button(0, "Rectangle", false);
+        this.menu = new PanelMenu.Button(0, 'Rectangle', false);
         this.setupMenu();
-        Main.panel.addToStatusArea("Rectangle", this.menu, 1);
+        Main.panel.addToStatusArea('Rectangle', this.menu, 1);
       } else if (!showIcon && menuVisible) {
         this.menu?.destroy();
         this.menu = undefined;
@@ -468,7 +481,7 @@ export default class GnomeRectangle extends Extension {
     const menu = this.menu.menu as PopupMenu.PopupMenu;
 
     // Set up the icon that appears the in top bar
-    const icon = this.#menuIcon("rectangle");
+    const icon = this.#menuIcon('rectangle');
     const hbox = new St.BoxLayout({});
     hbox.add_child(icon);
     this.menu?.add_child(hbox);
@@ -478,10 +491,10 @@ export default class GnomeRectangle extends Extension {
     let contentBox = new St.BoxLayout({
       vertical: false,
       xExpand: true,
-      styleClass: 'custom-menu-content'
+      styleClass: 'custom-menu-content',
     });
 
-    const opts = { vertical: true, xExpand: true, styleClass: "group-box" };
+    const opts = { vertical: true, xExpand: true, styleClass: 'group-box' };
     let column1 = new St.BoxLayout(opts);
     let column2 = new St.BoxLayout(opts);
     let column3 = new St.BoxLayout(opts);
@@ -492,12 +505,12 @@ export default class GnomeRectangle extends Extension {
 
     const horiz_opts = {
       vertical: false,
-      styleClass: "group-box",
-      xAlign: Clutter.ActorAlign.CENTER
+      styleClass: 'group-box',
+      xAlign: Clutter.ActorAlign.CENTER,
     };
 
     // Column 1
-    const thirdsLabel = new St.Label({ text: "Thirds", xAlign: Clutter.ActorAlign.CENTER });
+    const thirdsLabel = new St.Label({ text: 'Thirds', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(thirdsLabel);
     let thirdsGrid = new St.BoxLayout({ vertical: true });
     let thirdsGridRow1 = new St.BoxLayout(horiz_opts);
@@ -507,7 +520,7 @@ export default class GnomeRectangle extends Extension {
     thirdsGrid.add_child(thirdsGridRow1);
     column1.add_child(thirdsGrid);
 
-    const halvesLabel = new St.Label({ text: "Halves", xAlign: Clutter.ActorAlign.CENTER });
+    const halvesLabel = new St.Label({ text: 'Halves', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(halvesLabel);
     let halvesGrid = new St.BoxLayout({ vertical: true });
     let halvesGridRow1 = new St.BoxLayout(horiz_opts);
@@ -520,7 +533,7 @@ export default class GnomeRectangle extends Extension {
     halvesGrid.add_child(halvesGridRow2);
     column1.add_child(halvesGrid);
 
-    const sixthsLabel = new St.Label({ text: "Sixths", xAlign: Clutter.ActorAlign.CENTER });
+    const sixthsLabel = new St.Label({ text: 'Sixths', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(sixthsLabel);
     let sixthsGrid = new St.BoxLayout({ vertical: true });
     let sixthsGridRow1 = new St.BoxLayout(horiz_opts);
@@ -535,7 +548,7 @@ export default class GnomeRectangle extends Extension {
     sixthsGrid.add_child(sixthsGridRow2);
     column1.add_child(sixthsGrid);
 
-    const ninthsLabel = new St.Label({ text: "Ninths", xAlign: Clutter.ActorAlign.CENTER });
+    const ninthsLabel = new St.Label({ text: 'Ninths', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(ninthsLabel);
     let ninthsGrid = new St.BoxLayout({ vertical: true });
     let ninthsGridRow1 = new St.BoxLayout(horiz_opts);
@@ -556,7 +569,7 @@ export default class GnomeRectangle extends Extension {
     column1.add_child(ninthsGrid);
 
     // Column 2
-    const twoThirdsLabel = new St.Label({ text: "Two Thirds", xAlign: Clutter.ActorAlign.CENTER });
+    const twoThirdsLabel = new St.Label({ text: 'Two Thirds', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(twoThirdsLabel);
     let twoThirdsGrid = new St.BoxLayout({ vertical: true });
     let twoThirdsGridRow1 = new St.BoxLayout(horiz_opts);
@@ -566,7 +579,7 @@ export default class GnomeRectangle extends Extension {
     twoThirdsGrid.add_child(twoThirdsGridRow1);
     column2.add_child(twoThirdsGrid);
 
-    const quartersLabel = new St.Label({ text: "Quarters", xAlign: Clutter.ActorAlign.CENTER });
+    const quartersLabel = new St.Label({ text: 'Quarters', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(quartersLabel);
     let quartersGrid = new St.BoxLayout({ vertical: true });
     let quartersGridRow1 = new St.BoxLayout(horiz_opts);
@@ -579,7 +592,10 @@ export default class GnomeRectangle extends Extension {
     quartersGrid.add_child(quartersGridRow2);
     column2.add_child(quartersGrid);
 
-    const moveToMonitorLabel = new St.Label({ text: "Move to Monitor", xAlign: Clutter.ActorAlign.CENTER });
+    const moveToMonitorLabel = new St.Label({
+      text: 'Move to Monitor',
+      xAlign: Clutter.ActorAlign.CENTER,
+    });
     column2.add_child(moveToMonitorLabel);
     let moveToMonitorGrid = new St.BoxLayout({ vertical: true });
     let moveToMonitorGridRow1 = new St.BoxLayout(horiz_opts);
@@ -592,7 +608,7 @@ export default class GnomeRectangle extends Extension {
     moveToMonitorGrid.add_child(moveToMonitorGridRow2);
     column2.add_child(moveToMonitorGrid);
 
-    const moveLabel = new St.Label({ text: "Move", xAlign: Clutter.ActorAlign.CENTER });
+    const moveLabel = new St.Label({ text: 'Move', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(moveLabel);
     let moveGrid = new St.BoxLayout({ vertical: true });
     let moveGridRow1 = new St.BoxLayout(horiz_opts);
@@ -612,7 +628,7 @@ export default class GnomeRectangle extends Extension {
     moveGrid.add_child(moveGridRow3);
     column2.add_child(moveGrid);
 
-    const fourthsLabel = new St.Label({ text: "Fourths", xAlign: Clutter.ActorAlign.CENTER });
+    const fourthsLabel = new St.Label({ text: 'Fourths', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(fourthsLabel);
     let fourthsGrid = new St.BoxLayout({ vertical: true });
     let fourthsGridRow1 = new St.BoxLayout(horiz_opts);
@@ -625,7 +641,10 @@ export default class GnomeRectangle extends Extension {
 
     // Column 3
 
-    const threeFourthsLabel = new St.Label({ text: "Three Fourths", xAlign: Clutter.ActorAlign.CENTER });
+    const threeFourthsLabel = new St.Label({
+      text: 'Three Fourths',
+      xAlign: Clutter.ActorAlign.CENTER,
+    });
     column3.add_child(threeFourthsLabel);
     let threeFourthsGrid = new St.BoxLayout({ vertical: true });
     let threeFourthsGridRow1 = new St.BoxLayout(horiz_opts);
@@ -634,7 +653,7 @@ export default class GnomeRectangle extends Extension {
     threeFourthsGrid.add_child(threeFourthsGridRow1);
     column3.add_child(threeFourthsGrid);
 
-    const maximizeLabel = new St.Label({ text: "Maximize", xAlign: Clutter.ActorAlign.CENTER });
+    const maximizeLabel = new St.Label({ text: 'Maximize', xAlign: Clutter.ActorAlign.CENTER });
     column3.add_child(maximizeLabel);
     let maximizeGrid = new St.BoxLayout({ vertical: true });
     let maximizeGridRow1 = new St.BoxLayout(horiz_opts);
@@ -647,7 +666,7 @@ export default class GnomeRectangle extends Extension {
     maximizeGrid.add_child(maximizeGridRow2);
     column3.add_child(maximizeGrid);
 
-    const stretchLabel = new St.Label({ text: "Stretch", xAlign: Clutter.ActorAlign.CENTER });
+    const stretchLabel = new St.Label({ text: 'Stretch', xAlign: Clutter.ActorAlign.CENTER });
     column3.add_child(stretchLabel);
     let stretchGrid = new St.BoxLayout({ vertical: true });
     let stretchGridRow1 = new St.BoxLayout(horiz_opts);
@@ -660,7 +679,10 @@ export default class GnomeRectangle extends Extension {
     stretchGrid.add_child(stretchGridRow2);
     column3.add_child(stretchGrid);
 
-    const stretchStepLabel = new St.Label({ text: "Stretch (Step)", xAlign: Clutter.ActorAlign.CENTER });
+    const stretchStepLabel = new St.Label({
+      text: 'Stretch (Step)',
+      xAlign: Clutter.ActorAlign.CENTER,
+    });
     column3.add_child(stretchStepLabel);
     let stretchStepGrid = new St.BoxLayout({ vertical: true });
     let stretchStepGridRow1 = new St.BoxLayout(horiz_opts);
@@ -685,11 +707,13 @@ export default class GnomeRectangle extends Extension {
     const settingsIcon = new St.Icon({
       iconName: 'preferences-system-symbolic',
       styleClass: 'clipboard-menu-icon',
-      yAlign: Clutter.ActorAlign.CENTER
+      yAlign: Clutter.ActorAlign.CENTER,
     });
-    let settingsButton = new PopupMenu.PopupMenuItem("Settings");
+    let settingsButton = new PopupMenu.PopupMenuItem('Settings');
     settingsButton.insert_child_at_index(settingsIcon, 0);
-    settingsButton.connectObject('activate', () => { this.openPreferences() });
+    settingsButton.connectObject('activate', () => {
+      this.openPreferences();
+    });
     menu?.addMenuItem(settingsButton);
   }
 
@@ -706,7 +730,7 @@ export default class GnomeRectangle extends Extension {
       child: this.#menuIcon(tile),
       styleClass: 'group-button',
     });
-    button.connectObject("clicked", () => this.manage(i, rs, cs, r, c, Date.now()));
+    button.connectObject('clicked', () => this.manage(i, rs, cs, r, c, Date.now()));
     return button;
   }
 }
@@ -727,8 +751,8 @@ export default class GnomeRectangle extends Extension {
  *     https://gitlab.gnome.org/GNOME/gnome-shell/blob/master/js/ui/windowManager.js#L1093-1112
  */
 class ShortcutsManager {
-  _keybindings: Map<number, Binding>
-  _acceleratorActivatedId: number
+  _keybindings: Map<number, Binding>;
+  _acceleratorActivatedId: number;
 
   constructor() {
     this._keybindings = new Map();

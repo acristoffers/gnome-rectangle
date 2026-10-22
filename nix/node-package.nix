@@ -1093,6 +1093,15 @@ let
         sha512 = "vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==";
       };
     };
+    "prettier-3.9.10" = {
+      name = "prettier";
+      packageName = "prettier";
+      version = "3.9.10";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/prettier/-/prettier-3.9.10.tgz";
+        sha512 = "skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==";
+      };
+    };
     "punycode-2.3.1" = {
       name = "punycode";
       packageName = "punycode";
@@ -1525,6 +1534,7 @@ let
       sources."path-exists-4.0.0"
       sources."path-key-3.1.1"
       sources."prelude-ls-1.2.1"
+      sources."prettier-3.9.10"
       sources."punycode-2.3.1"
       sources."reserved-identifiers-1.2.0"
       sources."semver-7.8.4"

@@ -9,6 +9,23 @@ import St from 'gi://St';
 import Clutter from 'gi://Clutter';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+/*
+ * GNOME removed St.BoxLayout:vertical in favor of :orientation partway
+ * through the 51 development cycle (gnome-shell !3614), and :orientation
+ * doesn't exist before GNOME 48. The property removal didn't land on a
+ * clean version boundary (it's absent in 51.1 but still present in 51
+ * pre-releases), so check what the running shell actually supports
+ * instead of trying to parse a version number.
+ */
+const HAS_VERTICAL = 'vertical' in St.BoxLayout.prototype;
+
+function boxOrientation(vertical: boolean) {
+  if (HAS_VERTICAL) {
+    return { vertical };
+  }
+  return { orientation: vertical ? Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL };
+}
+
 class Geometry {
   x: number = 0;
   y: number = 0;
@@ -489,12 +506,12 @@ export default class GnomeRectangle extends Extension {
     // Create the main menu item
     let menuBase = new PopupMenu.PopupBaseMenuItem({ reactive: false });
     let contentBox = new St.BoxLayout({
-      vertical: false,
+      ...boxOrientation(false),
       xExpand: true,
       styleClass: 'custom-menu-content',
     });
 
-    const opts = { vertical: true, xExpand: true, styleClass: 'group-box' };
+    const opts = { ...boxOrientation(true), xExpand: true, styleClass: 'group-box' };
     let column1 = new St.BoxLayout(opts);
     let column2 = new St.BoxLayout(opts);
     let column3 = new St.BoxLayout(opts);
@@ -504,7 +521,7 @@ export default class GnomeRectangle extends Extension {
     contentBox.add_child(column3);
 
     const horiz_opts = {
-      vertical: false,
+      ...boxOrientation(false),
       styleClass: 'group-box',
       xAlign: Clutter.ActorAlign.CENTER,
     };
@@ -512,7 +529,7 @@ export default class GnomeRectangle extends Extension {
     // Column 1
     const thirdsLabel = new St.Label({ text: 'Thirds', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(thirdsLabel);
-    let thirdsGrid = new St.BoxLayout({ vertical: true });
+    let thirdsGrid = new St.BoxLayout(boxOrientation(true));
     let thirdsGridRow1 = new St.BoxLayout(horiz_opts);
     thirdsGridRow1.add_child(this.#menuButton('tile-third-first'));
     thirdsGridRow1.add_child(this.#menuButton('tile-third-second'));
@@ -522,7 +539,7 @@ export default class GnomeRectangle extends Extension {
 
     const halvesLabel = new St.Label({ text: 'Halves', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(halvesLabel);
-    let halvesGrid = new St.BoxLayout({ vertical: true });
+    let halvesGrid = new St.BoxLayout(boxOrientation(true));
     let halvesGridRow1 = new St.BoxLayout(horiz_opts);
     let halvesGridRow2 = new St.BoxLayout(horiz_opts);
     halvesGridRow1.add_child(this.#menuButton('tile-half-left'));
@@ -535,7 +552,7 @@ export default class GnomeRectangle extends Extension {
 
     const sixthsLabel = new St.Label({ text: 'Sixths', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(sixthsLabel);
-    let sixthsGrid = new St.BoxLayout({ vertical: true });
+    let sixthsGrid = new St.BoxLayout(boxOrientation(true));
     let sixthsGridRow1 = new St.BoxLayout(horiz_opts);
     let sixthsGridRow2 = new St.BoxLayout(horiz_opts);
     sixthsGridRow1.add_child(this.#menuButton('tile-sixth-top-left'));
@@ -550,7 +567,7 @@ export default class GnomeRectangle extends Extension {
 
     const ninthsLabel = new St.Label({ text: 'Ninths', xAlign: Clutter.ActorAlign.CENTER });
     column1.add_child(ninthsLabel);
-    let ninthsGrid = new St.BoxLayout({ vertical: true });
+    let ninthsGrid = new St.BoxLayout(boxOrientation(true));
     let ninthsGridRow1 = new St.BoxLayout(horiz_opts);
     let ninthsGridRow2 = new St.BoxLayout(horiz_opts);
     let ninthsGridRow3 = new St.BoxLayout(horiz_opts);
@@ -571,7 +588,7 @@ export default class GnomeRectangle extends Extension {
     // Column 2
     const twoThirdsLabel = new St.Label({ text: 'Two Thirds', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(twoThirdsLabel);
-    let twoThirdsGrid = new St.BoxLayout({ vertical: true });
+    let twoThirdsGrid = new St.BoxLayout(boxOrientation(true));
     let twoThirdsGridRow1 = new St.BoxLayout(horiz_opts);
     twoThirdsGridRow1.add_child(this.#menuButton('tile-two-thirds-left'));
     twoThirdsGridRow1.add_child(this.#menuButton('tile-two-thirds-center'));
@@ -581,7 +598,7 @@ export default class GnomeRectangle extends Extension {
 
     const quartersLabel = new St.Label({ text: 'Quarters', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(quartersLabel);
-    let quartersGrid = new St.BoxLayout({ vertical: true });
+    let quartersGrid = new St.BoxLayout(boxOrientation(true));
     let quartersGridRow1 = new St.BoxLayout(horiz_opts);
     let quartersGridRow2 = new St.BoxLayout(horiz_opts);
     quartersGridRow1.add_child(this.#menuButton('tile-quarter-top-left'));
@@ -597,7 +614,7 @@ export default class GnomeRectangle extends Extension {
       xAlign: Clutter.ActorAlign.CENTER,
     });
     column2.add_child(moveToMonitorLabel);
-    let moveToMonitorGrid = new St.BoxLayout({ vertical: true });
+    let moveToMonitorGrid = new St.BoxLayout(boxOrientation(true));
     let moveToMonitorGridRow1 = new St.BoxLayout(horiz_opts);
     let moveToMonitorGridRow2 = new St.BoxLayout(horiz_opts);
     moveToMonitorGridRow1.add_child(this.#menuButton('tile-move-to-monitor-top'));
@@ -610,7 +627,7 @@ export default class GnomeRectangle extends Extension {
 
     const moveLabel = new St.Label({ text: 'Move', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(moveLabel);
-    let moveGrid = new St.BoxLayout({ vertical: true });
+    let moveGrid = new St.BoxLayout(boxOrientation(true));
     let moveGridRow1 = new St.BoxLayout(horiz_opts);
     let moveGridRow2 = new St.BoxLayout(horiz_opts);
     let moveGridRow3 = new St.BoxLayout(horiz_opts);
@@ -630,7 +647,7 @@ export default class GnomeRectangle extends Extension {
 
     const fourthsLabel = new St.Label({ text: 'Fourths', xAlign: Clutter.ActorAlign.CENTER });
     column2.add_child(fourthsLabel);
-    let fourthsGrid = new St.BoxLayout({ vertical: true });
+    let fourthsGrid = new St.BoxLayout(boxOrientation(true));
     let fourthsGridRow1 = new St.BoxLayout(horiz_opts);
     fourthsGridRow1.add_child(this.#menuButton('tile-fourth-first'));
     fourthsGridRow1.add_child(this.#menuButton('tile-fourth-second'));
@@ -646,7 +663,7 @@ export default class GnomeRectangle extends Extension {
       xAlign: Clutter.ActorAlign.CENTER,
     });
     column3.add_child(threeFourthsLabel);
-    let threeFourthsGrid = new St.BoxLayout({ vertical: true });
+    let threeFourthsGrid = new St.BoxLayout(boxOrientation(true));
     let threeFourthsGridRow1 = new St.BoxLayout(horiz_opts);
     threeFourthsGridRow1.add_child(this.#menuButton('tile-three-fourths-left'));
     threeFourthsGridRow1.add_child(this.#menuButton('tile-three-fourths-right'));
@@ -655,7 +672,7 @@ export default class GnomeRectangle extends Extension {
 
     const maximizeLabel = new St.Label({ text: 'Maximize', xAlign: Clutter.ActorAlign.CENTER });
     column3.add_child(maximizeLabel);
-    let maximizeGrid = new St.BoxLayout({ vertical: true });
+    let maximizeGrid = new St.BoxLayout(boxOrientation(true));
     let maximizeGridRow1 = new St.BoxLayout(horiz_opts);
     let maximizeGridRow2 = new St.BoxLayout(horiz_opts);
     maximizeGridRow1.add_child(this.#menuButton('tile-maximize'));
@@ -668,7 +685,7 @@ export default class GnomeRectangle extends Extension {
 
     const stretchLabel = new St.Label({ text: 'Stretch', xAlign: Clutter.ActorAlign.CENTER });
     column3.add_child(stretchLabel);
-    let stretchGrid = new St.BoxLayout({ vertical: true });
+    let stretchGrid = new St.BoxLayout(boxOrientation(true));
     let stretchGridRow1 = new St.BoxLayout(horiz_opts);
     let stretchGridRow2 = new St.BoxLayout(horiz_opts);
     stretchGridRow1.add_child(this.#menuButton('tile-stretch-top'));
@@ -684,7 +701,7 @@ export default class GnomeRectangle extends Extension {
       xAlign: Clutter.ActorAlign.CENTER,
     });
     column3.add_child(stretchStepLabel);
-    let stretchStepGrid = new St.BoxLayout({ vertical: true });
+    let stretchStepGrid = new St.BoxLayout(boxOrientation(true));
     let stretchStepGridRow1 = new St.BoxLayout(horiz_opts);
     let stretchStepGridRow2 = new St.BoxLayout(horiz_opts);
     let stretchStepGridRow3 = new St.BoxLayout(horiz_opts);

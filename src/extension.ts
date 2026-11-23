@@ -67,6 +67,7 @@ export default class GnomeRectangle extends Extension {
   gsettings?: Gio.Settings;
   shortcuts = new Map<string, number>();
   menu?: PanelMenu.Button;
+  tileIcons: { icon: InstanceType<typeof St.Icon>; template: string }[] = [];
 
   enable() {
     this.animationState = new AnimationState();
@@ -94,6 +95,7 @@ export default class GnomeRectangle extends Extension {
     this.animationState = undefined;
     this.menu?.destroy();
     this.menu = undefined;
+    this.tileIcons = [];
   }
 
   focusedWindow() {
@@ -496,6 +498,12 @@ export default class GnomeRectangle extends Extension {
     }
 
     const menu = this.menu.menu as PopupMenu.PopupMenu;
+    this.tileIcons = [];
+    menu.connectObject('open-state-changed', (_menu: PopupMenu.PopupMenu, open: boolean) => {
+      if (open) {
+        this.#refreshTileIconColors();
+      }
+    });
 
     // Set up the icon that appears the in top bar
     const icon = this.#menuIcon('rectangle');
@@ -723,7 +731,7 @@ export default class GnomeRectangle extends Extension {
 
     const settingsIcon = new St.Icon({
       iconName: 'preferences-system-symbolic',
-      styleClass: 'clipboard-menu-icon',
+      styleClass: 'popup-menu-icon',
       yAlign: Clutter.ActorAlign.CENTER,
     });
     let settingsButton = new PopupMenu.PopupMenuItem('Settings');
@@ -741,10 +749,57 @@ export default class GnomeRectangle extends Extension {
     });
   }
 
+  /*
+   * GNOME's built-in symbolic-icon recoloring mangles these multi-shape
+   * icons (it flattens transparent regions, losing the hollow "screen"
+   * outline and the dimmed "phantom" window). So instead of relying on
+   * that pipeline, the correct color is baked directly into the SVG bytes
+   * before loading, replacing the #000000 placeholder used throughout
+   * res/placement-icons/*.svg.
+   *
+   * What color counts as "correct" isn't predictable from color-scheme:
+   * some shell themes (Yaru) follow it for popup backgrounds, others
+   * (vanilla GNOME) keep the popup dark regardless of it. So instead of
+   * guessing, we copy the theme's own computed text color, which is
+   * always rendered with proper contrast already, and refresh it every
+   * time the menu opens (see the 'open-state-changed' handler in
+   * setupMenu), since that's the only point the theme node is guaranteed
+   * to be live-styled.
+   */
+  #tileIconColor(): string {
+    const menu = this.menu?.menu as PopupMenu.PopupMenu | undefined;
+    const color = menu?.box.get_theme_node().get_foreground_color();
+    if (color == null) {
+      return '#000000';
+    }
+    const hex = (v: number) => v.toString(16).padStart(2, '0');
+    return `#${hex(color.red)}${hex(color.green)}${hex(color.blue)}`;
+  }
+
+  #refreshTileIconColors() {
+    const color = this.#tileIconColor();
+    for (const { icon, template } of this.tileIcons) {
+      icon.set_gicon(this.#recolorTileIcon(template, color));
+    }
+  }
+
+  #recolorTileIcon(template: string, color: string) {
+    const recolored = template.replaceAll('#000000', color);
+    return Gio.BytesIcon.new(new GLib.Bytes(new TextEncoder().encode(recolored)));
+  }
+
+  #tileIcon(name: string) {
+    const [, contents] = GLib.file_get_contents(this.dir.get_path() + `/icons/${name}.svg`);
+    const template = new TextDecoder().decode(contents);
+    const icon = new St.Icon({ gicon: this.#recolorTileIcon(template, this.#tileIconColor()) });
+    this.tileIcons.push({ icon, template });
+    return icon;
+  }
+
   #menuButton(tile: string) {
     const [i, rs, cs, r, c] = this.tiles[tile];
     const button = new St.Button({
-      child: this.#menuIcon(tile),
+      child: this.#tileIcon(tile),
       styleClass: 'group-button',
     });
     button.connectObject('clicked', () => this.manage(i, rs, cs, r, c, Date.now()));

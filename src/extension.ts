@@ -9,6 +9,8 @@ import St from 'gi://St';
 import Clutter from 'gi://Clutter';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+Gio._promisify(Gio.File.prototype, 'load_contents_async', 'load_contents_finish');
+
 /*
  * GNOME removed St.BoxLayout:vertical in favor of :orientation partway
  * through the 51 development cycle (gnome-shell !3614), and :orientation
@@ -789,10 +791,16 @@ export default class GnomeRectangle extends Extension {
   }
 
   #tileIcon(name: string) {
-    const [, contents] = GLib.file_get_contents(this.dir.get_path() + `/icons/${name}.svg`);
-    const template = new TextDecoder().decode(contents);
-    const icon = new St.Icon({ gicon: this.#recolorTileIcon(template, this.#tileIconColor()) });
-    this.tileIcons.push({ icon, template });
+    const icon = new St.Icon();
+    const file = Gio.File.new_for_path(this.dir.get_path() + `/icons/${name}.svg`);
+    file
+      .load_contents_async(null)
+      .then(([contents]: [Uint8Array, string]) => {
+        const template = new TextDecoder().decode(contents);
+        this.tileIcons.push({ icon, template });
+        icon.set_gicon(this.#recolorTileIcon(template, this.#tileIconColor()));
+      })
+      .catch(logError);
     return icon;
   }
 
